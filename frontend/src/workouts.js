@@ -1,56 +1,134 @@
 
 
 import { useState, useEffect, useContext } from "react"
-import { pullWorkout, deleteWorkoutURL } from "./urls"
 import { Link } from "react-router-dom"
-import { CreateWorkout } from "./CreateWorkout"
 import { WorkoutContext } from "./WorkoutContext"
 
 
+const CreateWorkoutForm = () => {
+    const [ title, setTitle ] = useState("")
+    const [ load, setLoad ] = useState("")
+    const [ reps, setReps ] = useState("")
+    const [ error, setError ] = useState(null)
+    const { createWorkout } = useContext(WorkoutContext)
 
-
-const WorkoutDetail = ( props ) => {
-    console.log(props)
-
-    const deleteId = async(id) => {
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        
         try {
-            const response = await fetch( deleteWorkoutURL+"/"+id, {
-                method: "DELETE",
-                headers : {
-                    "Content-Type" : "application/json"
-                }
-            });
-
-            const json = await response.json();
-
-            if( !response.ok ) console.log( json.error );
-
-
-        } catch(error) {
-            console.error(error);
+            await createWorkout( { title, reps, load } )
+            setTitle("")
+            setLoad("")
+            setReps("")
+            setError("")
+        } catch (error2) {
+            setError(error2)
         }
     }
 
     return (
+        <div className="CreateWorkout" >
+            { error && <p>  { error } </p> }
+            <form onSubmit={handleSubmit}>
+                <h3>  Add a New Workout </h3>
+
+                <p>
+                    <label> Title </label>
+                    <input
+                        type="text"
+                        onChange={ (e) => setTitle(e.target.value) }
+                        value={title}
+                    />
+                </p>
+
+                <p>
+                <label> Load </label>
+                <input
+                    type="number"
+                    onChange={ (e) => setLoad(e.target.value) }
+                    value={load}
+                />
+                </p>
+
+                <p>
+                <label> Reps </label>
+                <input
+                    type="number"
+                    onChange={ (e) => setReps(e.target.value) }
+                    value={reps}
+                />
+                </p>
+
+                <button> Add Workout </button>
+
+            </form>
+        </div>
+    )
+}
+
+
+const WorkoutDetail = ( props ) => {
+    const { deleteId } = useContext(WorkoutContext);
+
+    return (
         <div className="Detail" >
+            <p>
+                { props.workout.title } <br/>
+                { props.workout.load } <br/>
+                { props.workout.reps } <br/>
+                <button onClick={ () => deleteId( props.workout._id ) } >
+                    Delete 
+                </ button>
+            </p>
             
-                <p> 
-                    Title: { props.workout.title } <br/>
-                    Reps :{ props.workout.reps } <br/>
-                    Load : { props.workout.load } <br/>
-                    <button onClick={ () => { deleteId( props.workout._id ) }  }> Delete </button>
-                </p>       
         </div>
     )
 }
 
 export const Workouts = () => {
-    const { state, dispatch } = useContext( WorkoutContext )
+    const { workouts } = useContext( WorkoutContext )
     
-
     return (
         <div className="workouts" >
-            
+            <CreateWorkoutForm />
+            <h1  > Workouts </h1>
+            { workouts && workouts.map( i => <WorkoutDetail key={i._id} workout={i} /> ) }
         </div>
     )
 }
+
+
+/* ##########  OK
+
+export const Workouts = () => {
+    const { workouts } = useContext( WorkoutContext )
+
+    const aray = [ "kal", "pal" ];
+    const baray = [ { title: "title1", author: "author1" }, { title: "title2", author: "author2" } ]
+    const caray = []
+    const daray = null // null cannot be iterated without checking
+    
+    console.log( "aray", typeof(aray), aray );  // object
+    console.log( "baray", typeof(baray), baray ); // object
+    console.log( "caray", typeof(caray), caray ); // object
+    console.log( "daray", typeof(daha), daray );  // object
+    
+
+
+    return (
+        <div className="workouts" >
+            { aray && aray.map( i => (<p key={i}>  {i} </p>) ) }
+            { baray && baray.map( i => (<p key={i.title}>  {i.title} {i.author} </p>) ) }
+            {  caray.map( i=> ( <p key={i}> {i} </p> ) ) }
+            { daray && daray.map( i=> ( <p key={i}> {i} </p> ) ) }
+        </div>
+    )
+}
+
+*/
+
+
+/*  ############ ERROR
+
+
+*/

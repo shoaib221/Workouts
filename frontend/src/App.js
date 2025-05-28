@@ -9,17 +9,19 @@ import { WorkoutContextProvider } from './WorkoutContext';
 function App() {
   return (
     <div className="App">
+      <WorkoutContextProvider>
       <header className="App-header">
         <BrowserRouter>
-          <WorkoutContextProvider>
+          
             <Navbar />
             <Routes>
               <Route exact path='/' element={ <Home /> } > </Route>
               <Route exact path='/workouts' element={ <Workouts/> } > </Route>
             </Routes>
-          </WorkoutContextProvider>
+          
         </BrowserRouter>
       </header>
+      </WorkoutContextProvider>
     </div>
   );
 }

@@ -1,61 +1,96 @@
-import { createContext, useReducer } from "react";
+import { createContext, useReducer, useState } from "react";
 import { useEffect } from "react";
-import { pullWorkout, createWorkoutURL } from "./urls";
-
+import { pullWorkout, createWorkoutURL, deleteWorkoutURL } from "./urls";
 
 export const WorkoutContext = createContext();
 
+const aha =[ {  title : "title1",  author: "author1" }, {  title : "title1",  author: "author1" } ]
 
-const fetchWorkout = async () => {
+export const WorkoutContextProvider = ( { children } ) => {
+    const [ workouts, setWorkouts ] = useState([])
+
     
-    try {
-        const response = await fetch(pullWorkout);
-        console.log(response);
-        const json = await response.json();
-        console.log(json);
-    } catch (err) {
-        console.error(err);
-    } finally {
+    const fetchWorkout = async () => {
         
-    }
-}
-
-const createWorkout = async ( workout ) => {
-    
-    console.log(workout);
-
-    const response = await fetch( createWorkoutURL, {
-        method: "POST",
-        body: JSON.stringify(workout),
-        headers: {
-            "Content-Type": "application/json"
+        try {
+            const response = await fetch(pullWorkout);
+            const json = await response.json();
+            //console.log(response.ok, "json", typeof(json), json);
+            if( response.ok ) setWorkouts(json)
+            else console.log( response.error )
+        } catch (error) {
+            console.error(error);
         }
-    } )
-
-    const json = await response.json();
-
-    if( response.ok ) 
-    {
-        setTitle("")
-        setLoad("")
-        setReps("")
-        setError(null)
-        dispatch( { type: "CREATE_WORKOUT", payload : json } )
-        console.log(json.work)
-    }
-    else
-    {
-        setError(json.error)
     }
 
 
+    const createWorkout = async ( workout ) => {
+        
+        console.log(workout);
+
+        const response = await fetch( createWorkoutURL, {
+            method: "POST",
+            body: JSON.stringify(workout),
+            headers: {
+                "Content-Type": "application/json"
+            }
+        })
+
+        const json = await response.json();
+
+        if( response.ok ) setWorkouts( [ ...workouts, json ] )
+        else throw Error(json.error)
+    }
+
+    const deleteId = async(id) => {
+        
+        try {
+            
+            const response = await fetch( deleteWorkoutURL+"/"+id, {
+                method: "DELETE",
+                headers : {
+                    "Content-Type" : "application/json"
+                }
+            });
+            
+            const json = await response.json();
+            
+            if( response.ok ) 
+            {
+                const nxt = workouts.filter( x => x._id !=id )
+                //console.log( "nxt", nxt )
+                setWorkouts(nxt)
+            }
+            else console.error(json.error)
+
+        } catch(error) {
+            console.log( "bere", error );
+            
+        }
+    }
+
+    useEffect( () => {
+        fetchWorkout();
+    },[])
+
+    return (
+        <WorkoutContext.Provider value={ { workouts, fetchWorkout, deleteId, createWorkout } } >
+            { children }
+        </WorkoutContext.Provider>
+    )
 }
 
-const workoutReducer = ( state, action ) => {
+
+/*
+
+############   reducer 
+const workoutReducer = async ( state, action ) => {
     
     if( action.type === "SET_WORKOUT" )
     {
-        const res = fetchWorkout();
+        const res = await fetchWorkout();
+        console.log( "here" )
+        console.log( res )
         return { workouts: res }
     }
     else if( action.type === "CREATE_WORKOUT" )
@@ -65,7 +100,9 @@ const workoutReducer = ( state, action ) => {
     }
     else if( action.type === "DELETE_WORKOUT" )
     {
-        const res = state.workouts.filter( w => w._id!== action.payload._id )
+        const flag = deleteId(action.id);
+        const res = state.workouts;
+        if( flag )  res = state.workouts.filter( w => w._id!== action.id );
         return { workouts : res }
     }
     else
@@ -73,17 +110,4 @@ const workoutReducer = ( state, action ) => {
         return { workouts : state.workouts }
     }
 }
-
-export const WorkoutContextProvider = ( { children } ) => {
-    const [ state, dispatch ] = useReducer( workoutReducer, { workouts: null } );
-
-    useEffect( () => {
-        fetchWorkout();
-    },[])
-
-    return (
-        <WorkoutContext.Provider value={ { ...state, dispatch } } >
-            { children }
-        </WorkoutContext.Provider>
-    )
-}
+*/

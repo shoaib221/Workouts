@@ -35,12 +35,12 @@ const deleteWorkout = async ( req, res, next ) => {
     console.log( "delete "+ id);
 
     try {
-        await Workout.deleteOne( { "_id" : id } );
-        console.log("success")
-        response.status(200)
+        const ret = await Workout.deleteOne( { "_id" : id } );
+        if( !ret ) res.status(400).json( { error : "No Such workout" } );
+        else res.status(200).json(ret) 
     } catch (error) {
-        response.status(400).send( { "error": error } )
-        console.log(error)
+        res.status(400).json( { error: error.message } )
+        console.log(error.message)
     }
 
     next();
