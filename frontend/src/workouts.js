@@ -67,19 +67,69 @@ const CreateWorkoutForm = () => {
 }
 
 
+
 const WorkoutDetail = ( props ) => {
     const { deleteId } = useContext(WorkoutContext);
+    const [ updating, setUpdating ] = useState(false);
+
+    const UpdateWorkoutForm = ( props ) => {
+        const [ load, setLoad ] = useState("")
+        const [ reps, setReps ] = useState("")
+        const [ error, setError ] = useState(null)
+        const { updateWorkout } = useContext(WorkoutContext)
+
+        const handleSubmit = async (  ) => {
+            const data = { _id: props.workout_id, load, reps };
+            await updateWorkout(data)
+            setUpdating(true)
+        }
+
+        return (
+            <div className="UpdateWorkout" >
+                { error && <p>  { error } </p> }
+                <form onSubmit={handleSubmit}>
+                    
+
+                    <p>
+                    <label> Load </label>
+                    <input
+                        type="number"
+                        onChange={ (e) => setLoad(e.target.value) }
+                        value={load}
+                    />
+                    </p>
+
+                    <p>
+                    <label> Reps </label>
+                    <input
+                        type="number"
+                        onChange={ (e) => setReps(e.target.value) }
+                        value={reps}
+                    />
+                    </p>
+
+                    <button onClick={ ( ) => handleSubmit() } > Submit </button>
+
+                </form>
+            </div>
+            )
+        }
+
+
 
     return (
         <div className="Detail" >
-            <p>
+            
                 { props.workout.title } <br/>
                 { props.workout.load } <br/>
                 { props.workout.reps } <br/>
                 <button onClick={ () => deleteId( props.workout._id ) } >
                     Delete 
                 </ button>
-            </p>
+                
+                { !updating && <button onClick={ () => setUpdating(true) } > Update </button> }
+                { updating && <UpdateWorkoutForm workout_id = { props.workout._id }/> }
+
             
         </div>
     )
@@ -87,7 +137,7 @@ const WorkoutDetail = ( props ) => {
 
 export const Workouts = () => {
     const { workouts } = useContext( WorkoutContext )
-    
+
     return (
         <div className="workouts" >
             <CreateWorkoutForm />

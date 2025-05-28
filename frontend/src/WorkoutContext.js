@@ -26,20 +26,25 @@ export const WorkoutContextProvider = ( { children } ) => {
 
     const createWorkout = async ( workout ) => {
         
-        console.log(workout);
-
-        const response = await fetch( createWorkoutURL, {
+        try {
+            const response = await fetch( createWorkoutURL, {
             method: "POST",
             body: JSON.stringify(workout),
             headers: {
                 "Content-Type": "application/json"
             }
-        })
+            })
 
-        const json = await response.json();
+            const json = await response.json();
 
-        if( response.ok ) setWorkouts( [ ...workouts, json ] )
-        else throw Error(json.error)
+            if( response.ok ) setWorkouts( [ ...workouts, json ] )
+            else throw Error(json.error)
+        } catch (error) {
+            console.error(error)
+        }
+
+
+        
     }
 
     const deleteId = async(id) => {
@@ -64,9 +69,32 @@ export const WorkoutContextProvider = ( { children } ) => {
             else console.error(json.error)
 
         } catch(error) {
-            console.log( "bere", error );
+            console.error( "bere", error );
             
         }
+    }
+
+    const updateWorkout = async(workout) => {
+
+        try {
+            const response = await fetch( deleteWorkoutURL+"/"+workout._id, {
+            method: "PATCH",
+            body: JSON.stringify( workout ),
+            headers: { "Content-Type": "application/json" }
+            } )
+
+            const json = await response.json();
+            if( response.ok ) 
+            {
+                const tmp = workouts.filter( x => x._id!== workout._id )
+                tmp.push(json)
+                setWorkouts(tmp)
+            } 
+            else console.error(json.error)
+        } catch(error) {
+            console.error(error);
+        }
+        
     }
 
     useEffect( () => {
@@ -74,7 +102,7 @@ export const WorkoutContextProvider = ( { children } ) => {
     },[])
 
     return (
-        <WorkoutContext.Provider value={ { workouts, fetchWorkout, deleteId, createWorkout } } >
+        <WorkoutContext.Provider value={ { workouts, fetchWorkout, deleteId, createWorkout, updateWorkout } } >
             { children }
         </WorkoutContext.Provider>
     )
