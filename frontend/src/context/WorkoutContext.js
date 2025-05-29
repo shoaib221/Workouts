@@ -1,6 +1,6 @@
 import { createContext, useReducer, useState } from "react";
 import { useEffect } from "react";
-import { pullWorkout, createWorkoutURL, deleteWorkoutURL } from "./urls";
+import { pullWorkout, createWorkoutURL, deleteWorkoutURL } from "../constants/urls";
 
 export const WorkoutContext = createContext();
 
@@ -28,11 +28,11 @@ export const WorkoutContextProvider = ( { children } ) => {
         
         try {
             const response = await fetch( createWorkoutURL, {
-            method: "POST",
-            body: JSON.stringify(workout),
-            headers: {
-                "Content-Type": "application/json"
-            }
+                method: "POST",
+                body: JSON.stringify(workout),
+                headers: {
+                    "Content-Type": "application/json"
+                }
             })
 
             const json = await response.json();

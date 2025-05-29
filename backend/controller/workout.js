@@ -1,6 +1,6 @@
 
 
-const { response } = require("express");
+const express = require("express");
 const Workout = require("../models/workout.js");
 
 
@@ -12,7 +12,7 @@ const CreateWorkout = async ( req, res, next ) => {
         const workout = await Workout.create({ title, load, reps });
         res.status(200).json( workout );
     } catch (error) {
-        res.status(400).json( {"error": error.message} );
+        res.status(400).json( { error: error.message} );
     } finally {
         next();
     }
@@ -24,7 +24,7 @@ const getWorkouts = async ( req, res, next ) => {
         const workouts = await Workout.find({});
         res.status(200).json( workouts );
     } catch (error) {
-        res.status(400).json( { "error": error.message } );
+        res.status(400).json( { error: error.message } );
     } finally {
         next();
     }
@@ -51,16 +51,21 @@ const updateWorkout = async ( req, res, next ) => {
     const updation = req.body;
 
     try {
-        await Workout.updateOne({ "_id": id} , { $set : updation }  );
-        response.status(200);
+        const ret = await Workout.updateOne({ "_id": id} , { $set : updation }  );
+        if(!ret) res.status(400).json( { error: "No such workout" } );
+        else res.status(200).json( ret );
+        
     } catch( error ) {
-        response.status(400).send( { "error": error } );
+        response.status(400).json( {  error: error.message } );
     } finally {
         next();
     }
-    
 }
 
-module.exports = {
-    CreateWorkout, getWorkouts, deleteWorkout, updateWorkout
-}
+const workoutRouter = express.Router();
+workoutRouter.post( "/create", CreateWorkout );
+workoutRouter.get( "/pull", getWorkouts );
+workoutRouter.delete( "/:id" , deleteWorkout );
+workoutRouter.patch( "/:id", updateWorkout );
+
+module.exports = { workoutRouter }

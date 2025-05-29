@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useContext } from "react"
 import { Link } from "react-router-dom"
-import { WorkoutContext } from "./WorkoutContext"
+import { WorkoutContext } from "../context/WorkoutContext"
 
 
 const CreateWorkoutForm = () => {
@@ -81,7 +81,7 @@ const WorkoutDetail = ( props ) => {
         const handleSubmit = async (  ) => {
             const data = { _id: props.workout_id, load, reps };
             await updateWorkout(data)
-            setUpdating(true)
+            setUpdating(false)
         }
 
         return (
@@ -109,6 +109,7 @@ const WorkoutDetail = ( props ) => {
                     </p>
 
                     <button onClick={ ( ) => handleSubmit() } > Submit </button>
+                    <button onClick={ () => setUpdating(false) }> Cancel </button>
 
                 </form>
             </div>
@@ -119,17 +120,18 @@ const WorkoutDetail = ( props ) => {
 
     return (
         <div className="Detail" >
+        
+            { props.workout.title } <br/>
+            { props.workout.load } <br/>
+            { props.workout.reps } <br/>
+            { !updating &&
+            <button onClick={ () => deleteId( props.workout._id ) } >
+                Delete 
+            </ button> }
             
-                { props.workout.title } <br/>
-                { props.workout.load } <br/>
-                { props.workout.reps } <br/>
-                <button onClick={ () => deleteId( props.workout._id ) } >
-                    Delete 
-                </ button>
-                
-                { !updating && <button onClick={ () => setUpdating(true) } > Update </button> }
-                { updating && <UpdateWorkoutForm workout_id = { props.workout._id }/> }
-
+            { !updating && <button onClick={ () => setUpdating(true) } > Update </button> }
+            { updating && <UpdateWorkoutForm workout_id = { props.workout._id }/> }
+            
             
         </div>
     )
