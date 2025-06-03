@@ -10,7 +10,7 @@ const reducer =  ( state, action ) => {
     
     if( action.type === "FETCH" ) 
     {
-        console.log( action.type, action.data )
+        //console.log( action.type, action.data )
         return { products: action.data, test: "after" }
     }
     if( action.type === "CREATE" ) return { products : [...state.products, action.load] }

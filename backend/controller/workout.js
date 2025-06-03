@@ -2,6 +2,7 @@
 
 const express = require("express");
 const Workout = require("../models/workout.js");
+const { requireAuth } = require("./middlewire.js")
 
 
 const CreateWorkout = async ( req, res, next ) => {
@@ -63,6 +64,7 @@ const updateWorkout = async ( req, res, next ) => {
 }
 
 const workoutRouter = express.Router();
+workoutRouter(requireAuth);
 workoutRouter.post( "/create", CreateWorkout );
 workoutRouter.get( "/pull", getWorkouts );
 workoutRouter.delete( "/:id" , deleteWorkout );

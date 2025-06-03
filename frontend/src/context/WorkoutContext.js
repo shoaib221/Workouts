@@ -1,23 +1,25 @@
-import { createContext, useReducer, useState } from "react";
+import { createContext, useContext, useReducer, useState } from "react";
 import { useEffect } from "react";
 import { pullWorkout, createWorkoutURL, deleteWorkoutURL } from "../constants/urls";
+import { AuthContext } from "./authContext";
 
 export const WorkoutContext = createContext();
 
-const aha =[ {  title : "title1",  author: "author1" }, {  title : "title1",  author: "author1" } ]
-
 export const WorkoutContextProvider = ( { children } ) => {
     const [ workouts, setWorkouts ] = useState([])
+    const { user } = useContext(AuthContext)
 
     
     const fetchWorkout = async () => {
         
         try {
-            const response = await fetch(pullWorkout);
+            const response = await fetch(pullWorkout, {
+                headers: {'Authorization': `Bearer ${user.token}`} } );
             const json = await response.json();
+            
             //console.log(response.ok, "json", typeof(json), json);
             if( response.ok ) setWorkouts(json)
-            else console.log( response.error )
+            else console.log( json.error )
         } catch (error) {
             console.error(error);
         }

@@ -5,8 +5,6 @@ const mongoose = require('mongoose');
 
 
 const ProductSchema = new mongoose.Schema({
-
-
     name: {
         type: String,
         required: true,
@@ -23,8 +21,6 @@ const ProductSchema = new mongoose.Schema({
         made_in: {
         type: String
     }
-
-
 });
 
 const Product = mongoose.model('Product', ProductSchema);

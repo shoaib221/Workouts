@@ -1,12 +1,13 @@
+const { Product } = require( "../models/products.js" );
+const express = require("express");
+const { requireAuth } = require("./middlewire.js")
 
-const { Product } = require( "../models/products.js" ) 
-const express = require("express") 
 
 
 const CreateProduct = async ( req, res, next ) => { 
     const { name, price, validity, made_in } = req.body; 
     
-
+    
     try {
         const product = await Product.create({ name, price, validity, made_in });
         console.log(product)
@@ -32,7 +33,8 @@ const fetchProduct = async ( req, res, next ) => {
 }
 
 const productRouter = express.Router() 
-productRouter.get( "/fetch", fetchProduct )
-productRouter.post( "/create", CreateProduct )
+productRouter.use(requireAuth);
+productRouter.get( "/fetch", fetchProduct );
+productRouter.post( "/create", CreateProduct );
 
 module.exports = { productRouter }

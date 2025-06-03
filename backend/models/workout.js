@@ -1,4 +1,7 @@
+
+
 const mongoose = require("mongoose");
+
 
 const workoutSchema = new mongoose.Schema({
     title : {
@@ -7,14 +10,20 @@ const workoutSchema = new mongoose.Schema({
         unique: true,
     },
     reps: {
-        type: Number,
-        required: true
+        type: Number, 
+        required: true 
+    }, 
+    load: { 
+        type: Number, 
+        required: true 
     },
-    load: {
-        type: Number,
+    user: {
+        type: String,
         required: true
     }
 
 }, { timestamps: true } );
 
+
 module.exports = mongoose.model( "Workout", workoutSchema );
+
