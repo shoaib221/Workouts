@@ -1,8 +1,5 @@
 
-
 const mongoose = require('mongoose');
-
-
 
 const ProductSchema = new mongoose.Schema({
     name: {
@@ -10,19 +7,23 @@ const ProductSchema = new mongoose.Schema({
         required: true,
         unique: true,
     },
-        price: {
+    price: {
         type: Number,
         required: true,
     },
-        validity : {
+    validity : {
         type: Date,
         required: true
     },
-        made_in: {
+    made_in: {
         type: String
+    },
+    owner: {
+        type: String,
+        required: true
     }
 });
 
 const Product = mongoose.model('Product', ProductSchema);
 
-module.exports = { Product }
+module.exports = { Product };

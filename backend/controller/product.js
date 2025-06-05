@@ -9,7 +9,7 @@ const CreateProduct = async ( req, res, next ) => {
     
     
     try {
-        const product = await Product.create({ name, price, validity, made_in });
+        const product = await Product.create({ name, price, validity, made_in, owner: req.user_id });
         console.log(product)
         res.status(200).json( product );
     } catch (error) {
@@ -23,7 +23,7 @@ const CreateProduct = async ( req, res, next ) => {
 const fetchProduct = async ( req, res, next ) => {
 
     try {
-        const products = await Product.find({});
+        const products = await Product.find({owner : req.user_id});
         res.status(200).json( products );
     } catch (error) {
         res.status(400).json( { error: error.message } );

@@ -1,9 +1,9 @@
 
 
 const express = require("express");
-const { productRouter } = require("./controller/product.js")
-const { workoutRouter } = require("./controller/workout.js")
-const { authRouter } = require("./controller/auth.js")
+const { productRouter } = require("./controller/product.js");
+const { workoutRouter } = require("./controller/workout.js");
+const { authRouter } = require("./controller/auth.js");
 
 
 

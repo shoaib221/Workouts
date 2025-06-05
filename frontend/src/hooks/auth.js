@@ -20,7 +20,11 @@ export const useSignup = () => {
 
         const json = await response.json();
 
-        if (!response.ok) throw Error(json.error);
+        if (!response.ok) 
+        {
+            console.log(111);
+            throw Error(json.error);
+        }
 
         if (response.ok) {
 			

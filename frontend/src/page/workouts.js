@@ -22,7 +22,7 @@ const CreateWorkoutForm = () => {
             setReps("")
             setError("")
         } catch (error2) {
-            setError(error2)
+            setError(error2.message)
         }
     }
 

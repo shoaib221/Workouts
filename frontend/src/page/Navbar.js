@@ -10,10 +10,16 @@ export const Navbar = () => {
     return (
         <header>
         <div className="container">
-            <Link to="/" >
-                <h1> Workout Buddy </h1>
-            </Link>
-            { user && <button onClick={logout} > Logout </button> }
+            
+            
+            { user && <div>
+                <Link to="/" > Home </Link>
+                <Link to="/workout" > Workout </Link>
+                <Link to="/product"> Product </Link>
+                { user.email } 
+                <button onClick={logout} > Logout </button>  
+             </div> }
+
         </div>
         </header>
     )
