@@ -13,7 +13,7 @@ export const WorkoutContextProvider = ( { children } ) => {
 
     
     const fetchWorkout = async () => {
-        
+        console.log( "fetchWorkout", user );
         const response = await fetch(pullWorkout, {
             headers: {'Authorization': `Bearer ${user.token}`} 
         });
@@ -22,7 +22,7 @@ export const WorkoutContextProvider = ( { children } ) => {
         
         //console.log(response.ok, "json", typeof(json), json);
         if( response.ok ) setWorkouts(json);
-        else throw Error(json.error);
+        else console.error(json.error);
         
     }
 
@@ -59,9 +59,9 @@ export const WorkoutContextProvider = ( { children } ) => {
         if( response.ok ) 
         {
             const nxt = workouts.filter( x => x._id !=id );
-            setWorkouts(nxt)
+            setWorkouts(nxt);
         }
-        else throw Error(json.error);
+        else console.error(json.error);
         
     }
 
@@ -90,7 +90,7 @@ export const WorkoutContextProvider = ( { children } ) => {
     useEffect( () => {
         try { if(user) fetchWorkout(); }
         catch( error ) { console.error(error.message) }
-    },[user]);
+    }, [user]);
 
     return (
         <WorkoutContext.Provider value={ { workouts, fetchWorkout, deleteWorkout, createWorkout, updateWorkout } } >

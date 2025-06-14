@@ -32,7 +32,7 @@ const fetchProduct = async ( req, res, next ) => {
     }
 }
 
-const productRouter = express.Router() 
+const productRouter = express.Router();
 productRouter.use(requireAuth);
 productRouter.get( "/fetch", fetchProduct );
 productRouter.post( "/create", CreateProduct );

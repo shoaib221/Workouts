@@ -7,16 +7,18 @@ const bcrypt = require("bcrypt");
 const validaor = require( "validator" );
 const jwt = require("jsonwebtoken");
 const { requireAuth } = require("./middlewire.js");
+const { oauth2Client } = require("../utils/googleClient.js");
+const axios = require("axios");
 
 
 authRouter.get("/test",  ( req, res, next ) => {
     
     res.status(200).json({ "msg": "ok" });
     next();
-} )
+});
 
-const createToken = (_id)  => {
-    return jwt.sign( {_id}, process.env.SECRET, { expiresIn: "1d" }  );
+const createToken = (_id, username)  => {
+    return jwt.sign( {_id, username}, process.env.JWT_SECRET, { expiresIn: "1d" }  );
 }
 
 async function hashy( pass ) {
@@ -70,19 +72,55 @@ const Login = async ( request, response, next ) => {
         response.status(200).json({email, token});
     
         next();
+    } catch (error) {
+        response.status(400).json({error: error.message}); 
     }
-    catch (error) {
-        response.status(400).json({error: error.message});
-    }
-
 }
 
+const Init = (req, res, next) =>
+{
+    res.status(200).json( {message: "OK"} );
+    console.log( "backend init" );
+    next();
+}
 
+const GoogleLogin = async ( req, res, next ) => {
+    console.log( "google login" );
 
+    try {
+
+        const { code } = req.query;
+        const googleRes= await oauth2Client.getToken(code);
+        oauth2Client.setCredentials(googleRes.tokens);
+        
+        const userRes = await axios.get(
+            `https://www.googleapis.com/oauth2/v1/userinfo?alt=json&access_token=${googleRes.tokens.access_token}`
+        );
+        
+        const { email, name } = userRes.data;
+        
+        
+        let user = await User.findOne({ username: email });
+        const dummy = await hashy(process.env.DUMMY_PASS);
+        if (!user) user = await User.create({ username: email, password: dummy });
+        
+        
+        const token = createToken(user._id, user.username);
+        
+        res.status(200).json({ token, email });
+        console.log("here");
+    } catch (err) {
+        console.log("there", new Date().toLocaleString());
+        
+        res.status(400).json( {error: err.message} );
+    } 
+    
+}
 
 authRouter.post( "/register", Register );
 authRouter.post( "/login", Login);
+authRouter.get("/google", GoogleLogin);
 authRouter.use(requireAuth);
-
+authRouter.get("/init", Init);
 
 module.exports = { authRouter };

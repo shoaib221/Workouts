@@ -40,7 +40,6 @@ const deleteWorkout = async ( req, res, next ) => {
     try {
         const ret = await Workout.findOne({ _id: id }) ;
         if( !ret ) throw Error("No such workout");
-        if( ret.owner_id!==req.user_id ) throw Error("Unauthorized request");
         await Workout.deleteOne( { _id : id } );
         res.status(200).json(ret) 
     } catch (error) {

@@ -1,8 +1,10 @@
 
 
 import { useState, useEffect } from "react";
-import { registerURL, loginURL, logoutURL } from "../constants/urls";
+import { registerURL, loginURL, logoutURL } from "../constants/urls.js";
 import { useLogin, useSignup } from "../hooks/auth.js";
+import { Link } from "react-router-dom";
+import { GoogleAuth } from "./GoogleAuth.jsx";
 
 
 const Login = () => {
@@ -113,30 +115,32 @@ const Register = () => {
 
 
 export const Auth = () => {
-    const [ login, toggle ] = useState(true)
-    const [ option, changeOption ] = useState("register")
+    const [ login, toggle ] = useState(true);
+    const [ option, changeOption ] = useState("register");
 
     const onChange = () =>
     {
         if( option==="register" ) 
         {
             changeOption("login");
-            toggle(false)
+            toggle(false);
         }
         else
         {
             changeOption("register");
-            toggle(true)
+            toggle(true);
         }
     }
 
     return (
         <div className="Auth">
 
-            { login && <Login/> }
+            {/* { login && <Login/> }
             { !login && <Register /> }
 
-            <button onClick={onChange} > { option } </button>
+            <button onClick={onChange} > { option } </button> */}
+
+            <GoogleAuth />
 
         </div>
     )

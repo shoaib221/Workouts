@@ -8,11 +8,12 @@ import { Navbar } from './page/Navbar';
 import { Auth } from './page/auth';
 import { AuthContext } from './context/authContext';
 import { useContext } from 'react';
-
+import { GoogleAuth } from './page/GoogleAuth';
+import { PageNotFound } from './page/PageNotFound';
 
 function App() {
 	const { user } = useContext( AuthContext );
-	console.log(user);
+	//console.log(user);
 
   	return (
 	
@@ -23,8 +24,9 @@ function App() {
 				<Routes>
 					<Route exact path='/' element={user? <Home /> : <Navigate to="/auth" /> } >  </Route>
 					<Route exact path='/workout' element={user ? <Workouts/> : <Navigate to="/auth" />  } >  </Route> 
-					
 					<Route exact path='/auth' element={ user ? <Navigate to="/" /> : <Auth /> } >  </Route>
+					<Route exact path='/google-auth' element={ user ? <Navigate to="/" /> : <GoogleAuth /> } >  </Route>
+					<Route path='*' element={ <PageNotFound/> } ></Route>
 				</Routes>
           	</BrowserRouter>
         </header>

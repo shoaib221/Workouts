@@ -1,8 +1,8 @@
 
 
-import { useState, useEffect, useContext } from "react"
-import { Link } from "react-router-dom"
-import { WorkoutContext } from "../context/WorkoutContext"
+import { useState, useEffect, useContext } from "react";
+import { Link } from "react-router-dom";
+import { WorkoutContext } from "../context/WorkoutContext";
 
 
 const CreateWorkoutForm = () => {
@@ -27,7 +27,7 @@ const CreateWorkoutForm = () => {
     }
 
     return (
-        <div className="CreateWorkout" >
+        <div className="create-workout" >
             { error && <p>  { error } </p> }
             <form onSubmit={handleSubmit}>
                 <h3>  Add a New Workout </h3>
@@ -66,10 +66,9 @@ const CreateWorkoutForm = () => {
     )
 }
 
-
-
+// workouts, fetchWorkout, deleteWorkout, createWorkout, updateWorkout
 const WorkoutDetail = ( props ) => {
-    const { deleteId } = useContext(WorkoutContext);
+    const { deleteWorkout } = useContext(WorkoutContext);
     const [ updating, setUpdating ] = useState(false);
 
     const UpdateWorkoutForm = ( props ) => {
@@ -85,7 +84,7 @@ const WorkoutDetail = ( props ) => {
         }
 
         return (
-            <div className="UpdateWorkout" >
+            <div className="update-workout" >
                 { error && <p>  { error } </p> }
                 <form onSubmit={handleSubmit}>
                     
@@ -119,13 +118,13 @@ const WorkoutDetail = ( props ) => {
 
 
     return (
-        <div className="Detail" >
+        <div className="workout-detail" >
         
-            { props.workout.title } <br/>
-            { props.workout.load } <br/>
-            { props.workout.reps } <br/>
+            Title : { props.workout.title } <br/>
+            Load : { props.workout.load } <br/>
+            Reps : { props.workout.reps } <br/>
             { !updating &&
-            <button onClick={ () => deleteId( props.workout._id ) } >
+            <button onClick={ () => deleteWorkout( props.workout._id ) } >
                 Delete 
             </ button> }
             
@@ -137,14 +136,18 @@ const WorkoutDetail = ( props ) => {
     )
 }
 
+
 export const Workouts = () => {
     const { workouts } = useContext( WorkoutContext )
 
     return (
         <div className="workouts" >
             <CreateWorkoutForm />
-            <h1  > Workouts </h1>
-            { workouts && workouts.map( i => <WorkoutDetail key={i._id} workout={i} /> ) }
+            
+            <div className="workout-list">
+                <h1> Workouts </h1>
+                { workouts && workouts.map( i => <WorkoutDetail key={i._id} workout={i} /> ) }
+            </div>
         </div>
     )
 }
