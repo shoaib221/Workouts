@@ -8,6 +8,7 @@ import reportWebVitals from './reportWebVitals.js';
 import { AuthContextProvider } from './context/authContext.js';
 import { WorkoutContextProvider } from './context/WorkoutContext.js';
 import {GoogleOAuthProvider} from '@react-oauth/google';
+import { ProductProvider } from './context/productContext.js';
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -16,11 +17,13 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render (
   	<React.StrictMode>
     	<AuthContextProvider>
+			<ProductProvider>
 			<GoogleOAuthProvider clientId='538256178695-tshpqhedtonoe5psm1uf0c94heg065uh.apps.googleusercontent.com' >
         	<WorkoutContextProvider>
         		<App />
         	</WorkoutContextProvider>
 			</GoogleOAuthProvider>
+			</ProductProvider>
     	</AuthContextProvider>
   	</React.StrictMode>
 );

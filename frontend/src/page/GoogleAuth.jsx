@@ -20,7 +20,7 @@ export const GoogleAuth = () => {
 				const obj = {email, token};
 				localStorage.setItem('user',JSON.stringify(obj));
 				dispatch( { type: "LOGIN", payload: obj } );
-				console.log("success");
+				//console.log("success");
 				navigate('/');
 			} else {
 				console.log(authResult);

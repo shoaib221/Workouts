@@ -53,8 +53,6 @@ const Register = async ( req, response, nect ) => {
 
         response.status(400).json({error: error.message})
     } 
-    
-    nect();
 }
 
 
@@ -71,7 +69,7 @@ const Login = async ( request, response, next ) => {
         const token = createToken(user._id);
         response.status(200).json({email, token});
     
-        next();
+        
     } catch (error) {
         response.status(400).json({error: error.message}); 
     }
@@ -108,7 +106,8 @@ const GoogleLogin = async ( req, res, next ) => {
         const token = createToken(user._id, user.username);
         
         res.status(200).json({ token, email });
-        console.log("here");
+        
+        
     } catch (err) {
         console.log("there", new Date().toLocaleString());
         
@@ -119,8 +118,8 @@ const GoogleLogin = async ( req, res, next ) => {
 
 authRouter.post( "/register", Register );
 authRouter.post( "/login", Login);
-authRouter.get("/google", GoogleLogin);
-authRouter.use(requireAuth);
-authRouter.get("/init", Init);
+authRouter.get( "/google", GoogleLogin );
+authRouter.use( requireAuth );
+authRouter.get( "/init", Init );
 
 module.exports = { authRouter };

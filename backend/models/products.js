@@ -11,12 +11,9 @@ const ProductSchema = new mongoose.Schema({
         type: Number,
         required: true,
     },
-    validity : {
+    availability : {
         type: Date,
         required: true
-    },
-    made_in: {
-        type: String
     },
     owner: {
         type: String,

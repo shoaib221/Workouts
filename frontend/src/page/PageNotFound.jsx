@@ -1,6 +1,9 @@
-import { useNavigate } from "react-router-dom"
+
+
+import { useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import { AuthContext } from "../context/authContext";
+
 
 export const PageNotFound = () => {
     const navigate = useNavigate();
@@ -13,3 +16,4 @@ export const PageNotFound = () => {
         </div>
     )
 }
+
