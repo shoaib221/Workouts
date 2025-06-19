@@ -15,7 +15,7 @@ const api = axios.create({
 
 const CreateProductForm = () => {
     const [ name, setName ] = useState("");
-    const [ price, setPrice ] = useState(0);
+    const [ price, setPrice ] = useState("");
     const [ availability, setAvailability ] = useState(true);
     const [ error, setError ] = useState(null);
     const { products, setProducts } = useContext( ProductContext );
@@ -34,20 +34,21 @@ const CreateProductForm = () => {
             setProducts( [ ...products, response.data ] );
         }
         catch (err) {
-            setError(err.message);
+            setError(err.response.data.error);
         }
         
     }
 
     return (
         <div className="create-product" >
-            { error && <p>  { error } </p> }
+            { error && <p className="error" >  { error } </p> }
             <form onSubmit={handleSubmit}>
                 <h3>  Add a New Product </h3>
 
                 <p>
-                    <label> name </label>
+                    
                     <input
+                        placeholder="Name"
                         type="text"
                         onChange={ (e) => setName(e.target.value) }
                         value={name}
@@ -55,20 +56,12 @@ const CreateProductForm = () => {
                 </p>
 
                 <p>
-                <label> Price </label>
+                
                 <input
+                    placeholder="Price"
                     type="number"
                     onChange={ (e) => setPrice(e.target.value) }
                     value={price}
-                />
-                </p>
-
-                <p>
-                <label> availability </label>
-                <input
-                    type="number"
-                    onChange={ (e) => setAvailability(e.target.value) }
-                    value={availability}
                 />
                 </p>
 
@@ -94,28 +87,13 @@ const ProductDetail = ( props ) => {
         }
     }
 
-    const AddToCart = ( product ) => {
-        dispatchCart( { type: "add", data: { ...product, quantity } } )
-    }
-
     return (
-        <div className="product-detail" >
-            Name : { props.product.name } <br/>
-            Price : { props.product.price } <br/>
-
+        <div 
+            className="product-detail" 
+            style={ { border: "0px", margin: "5px" } }
+        >
+            { props.product.name } at ${ props.product.price } per KG 
             <button onClick={ ()=> { deletePro(props.product._id) } } > Delete </button>
-
-            <div>
-                <button onClick={ ()=> { AddToCart(props.product) } }
-                style={{"width": "50%"}} > Add To Cart </button>
-                <label> Quantity </label>
-                <input
-                    type="number"
-                    onChange={ (e) => setQuantity(e.target.value) }
-                    value={quantity}
-                    style={{"width": "50%"}}
-                />
-            </div>
         </div>
     )
 }
@@ -123,7 +101,6 @@ const ProductDetail = ( props ) => {
 
 export const Products = () => {
     const { products } = useContext( ProductContext );
-
 
 
     return (
@@ -139,6 +116,8 @@ export const Products = () => {
         
     )
 }
+
+
 
 
 /* ##########  OK

@@ -105,7 +105,7 @@ const GoogleLogin = async ( req, res, next ) => {
         
         const token = createToken(user._id, user.username);
         
-        res.status(200).json({ token, email });
+        res.status(200).json({ token,  email });
         
         
     } catch (err) {

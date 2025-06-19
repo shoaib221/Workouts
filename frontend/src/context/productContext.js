@@ -9,36 +9,9 @@ const api = axios.create({
     // withCredentials: true,
 });
 
-const reducer = (state, action) => {
-    if( action.type === "add" ) 
-    {
-        
-        let aray = [];
-        if( state.cart ) aray = [ ...state.cart, action.data ];
-        else aray = [ action.data ];
-
-        localStorage.setItem( 'cart', JSON.stringify( aray ) );
-        return { cart : aray };
-    }
-    else if( action.type === "set" ) 
-    {
-        const cart = JSON.parse(localStorage.getItem('cart'));
-        return { cart };
-    }
-    else if( action.type === "delete" ) 
-    {
-        if(!state.cart) return {}
-        let cart = state.cart.filter( i => i._id !== action.data._id );
-        localStorage.setItem( 'cart', JSON.stringify(cart) );
-        return { cart };
-    }
-    else return { cart: state.cart };
-}
-
 export const ProductProvider = ( {children} ) => {
     const [ products, setProducts ] = useState([]);
-    const [stateCart, dispatchCart] = useReducer(reducer, { cart: [] } )
-    const [ restairants, setRestaurants ] = useState([])
+    const [ restaurants, setRestaurants ] = useState([]);
     const {user} = useContext(AuthContext);
 
     async function fetch () {
@@ -49,7 +22,7 @@ export const ProductProvider = ( {children} ) => {
             );
             setProducts(response.data.products);
             setRestaurants(response.data.restaurants);
-            //console.log(response.data)
+            //console.log(response.data);
         }
         catch (err) {
             console.error(err.message);
@@ -70,13 +43,14 @@ export const ProductProvider = ( {children} ) => {
         if(user)
         {
             fetch();
-            dispatchCart( { type: "set" } )
+            
         }
         
     }, [user] )
 
     return (
-        <ProductContext.Provider value={{ setProducts, products, deleteProduct, dispatchCart, ...stateCart }}>
+        <ProductContext.Provider 
+        value={{ restaurants, setProducts, products, deleteProduct }}>
             {children}
         </ProductContext.Provider>
     )

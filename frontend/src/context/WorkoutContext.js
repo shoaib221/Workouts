@@ -13,7 +13,7 @@ export const WorkoutContextProvider = ( { children } ) => {
 
     
     const fetchWorkout = async () => {
-        console.log( "fetchWorkout", user );
+        //console.log( "fetchWorkout", user );
         const response = await fetch(pullWorkout, {
             headers: {'Authorization': `Bearer ${user.token}`} 
         });

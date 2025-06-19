@@ -39,18 +39,22 @@ const Login = () => {
             <form className="login" onSubmit={handleSubmit}>
                 <h3>Log In</h3>
                 
-                <label>Email address:</label> 
+                
                 <input 
+                style={{ display: "inline" }}
+                placeholder="Email"
                 type="email" 
                 onChange={(e) => setEmail(e.target.value)} 
                 value={email} 
                 /> 
+                
 
-                <label>Password:</label>
+                
                 <input 
-                type="password" 
-                onChange={(e) => setPassword(e.target.value)} 
-                value={password} 
+                    placeholder="Password"
+                    type="password" 
+                    onChange={(e) => setPassword(e.target.value)} 
+                    value={password} 
                 />
 
                 { !loading && <button> Submit </button> }
@@ -135,10 +139,10 @@ export const Auth = () => {
     return (
         <div className="Auth">
 
-            {/* { login && <Login/> }
+            { login && <Login/> }
             { !login && <Register /> }
 
-            <button onClick={onChange} > { option } </button> */}
+            <button onClick={onChange} > { option } </button>
 
             <GoogleAuth />
 
