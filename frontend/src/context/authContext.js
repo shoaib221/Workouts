@@ -16,25 +16,30 @@ export const AuthContextProvider = ({ children }) => {
 
     async function  Init() {
         
-        const user = JSON.parse(localStorage.getItem('user'));
-        if(!user) return;
-        
-        
-        const response = await fetch(initURL, {
-            headers: {'Authorization': `Bearer ${user.token}`} 
-        });
-        
-        const json = await response.json();
-        if( response.ok ) dispatch({ type: 'LOGIN', payload: user });
-        else 
-        {
-            localStorage.removeItem('user');
-            dispatch( { type: 'LOGOUT' } );
+        try {
+            const user = JSON.parse(localStorage.getItem('user'));
+            if(!user) return;
+            
+            
+            const response = await fetch(initURL, {
+                headers: {'Authorization': `Bearer ${user.token}`} 
+            });
+            
+            const json = await response.json();
+            if( response.ok ) dispatch({ type: 'LOGIN', payload: user });
+            else 
+            {
+                localStorage.removeItem('user');
+                dispatch( { type: 'LOGOUT' } );
+            }
+        } catch (err) {
+            console.error(err.message);
         }
         
     }
 
     useEffect(() => {
+        
         Init();
     }, [])
 

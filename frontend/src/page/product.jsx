@@ -32,6 +32,9 @@ const CreateProductForm = () => {
             );
             //console.log( response.data );
             setProducts( [ ...products, response.data ] );
+            setName("");
+            setPrice("");
+            setError(null);
         }
         catch (err) {
             setError(err.response.data.error);

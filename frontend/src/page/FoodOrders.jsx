@@ -34,9 +34,10 @@ const OrderDetail = ( props ) => {
 
     return (
         <div className="order-detail" style={sOrderDetail} >
-            
-            { props.order.buyer.username } purchased from { props.order.owner.username } with ${ props.order.total_price } at { props.order.when }
-            <button onClick={onDetail} > Product List </button>
+            <button onClick={onDetail} >
+                { props.order.buyer.username } purchased from { props.order.owner.username } with ${ props.order.total_price } at { props.order.when }
+            </button>
+
             { detail && props.order.product_list && 
             <div  > 
             {props.order.product_list.map( x => (
@@ -54,6 +55,7 @@ export const MyOrders = () => {
     const [ pOrders, setPorders ] = useState(null);
     const [ error, setError ] = useState(null);
     const { user } = useContext( AuthContext );
+    
 
     const fetch = async (  ) => {
         console.log(" fetch order ");
@@ -77,12 +79,12 @@ export const MyOrders = () => {
         <div id="orders" >
             {error}
             <div className="received-orders"> 
-                <h2> Received Orders </h2>
+                <h2 style={{ color: "#e67272" }} > Received Orders </h2>
                 { rOrders && rOrders.map( x => <OrderDetail key={x._id} order={x} /> ) }
             </div>
 
-            <div className="placed-orders"> 
-                <h2> Placed Orders </h2>
+            <div className="received-orders"> 
+                <h2 style={{ color: "#e67272" }} > Placed Orders </h2>
                 { pOrders && pOrders.map( x => <OrderDetail key={x._id} order={x} /> ) }
             </div>
 

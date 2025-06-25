@@ -2,12 +2,16 @@
 
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import './constants/index.css';
+import {GoogleOAuthProvider} from '@react-oauth/google';
+
+
+
+import './index.css';
 import App from './App.jsx';
 import reportWebVitals from './reportWebVitals.js';
 import { AuthContextProvider } from './context/authContext.js';
 import { WorkoutContextProvider } from './context/WorkoutContext.js';
-import {GoogleOAuthProvider} from '@react-oauth/google';
+
 import { ProductProvider } from './context/productContext.js';
 
 
