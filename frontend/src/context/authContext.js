@@ -1,7 +1,7 @@
 
 
 import { createContext, useReducer, useEffect } from 'react';
-import { initURL } from '../constants/urls';
+import { initURL } from '../urls';
 
 export const AuthContext = createContext();
 

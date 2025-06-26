@@ -9,6 +9,7 @@ import axios from "axios";
 import { AuthContext } from "../context/authContext";
 import { Cart, AddToCart } from "./cart";
 import { Restaurant } from "./restaurant";
+import { Navbar } from "./Navbar";
 
 
 export const Home = () => {
@@ -21,6 +22,7 @@ export const Home = () => {
 
     return (
         <div className="home" >
+            
             <h1 style={{ width: "100%" }} > Restaurants </h1>
             <div class='restaurant-list'>
             { restaurants && restaurants.map( r => (

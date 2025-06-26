@@ -6,7 +6,7 @@ import {GoogleOAuthProvider} from '@react-oauth/google';
 
 
 
-import './index.css';
+import './styles/index.css';
 import App from './App.jsx';
 import reportWebVitals from './reportWebVitals.js';
 import { AuthContextProvider } from './context/authContext.js';

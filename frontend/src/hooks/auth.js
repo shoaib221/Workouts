@@ -1,7 +1,7 @@
 
 
 import { useState, useContext } from 'react'
-import { loginURL, registerURL } from '../constants/urls'
+import { loginURL, registerURL } from '../urls'
 import { AuthContext } from '../context/authContext'
 
 

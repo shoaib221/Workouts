@@ -2,7 +2,7 @@
 
 import { createContext, use, useContext, useReducer, useState } from "react";
 import { useEffect } from "react";
-import { pullWorkout, createWorkoutURL, deleteWorkoutURL } from "../constants/urls";
+import { pullWorkout, createWorkoutURL, deleteWorkoutURL } from '../urls';
 import { AuthContext } from "./authContext";
 
 export const WorkoutContext = createContext();

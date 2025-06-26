@@ -12,7 +12,7 @@ import { Products } from './page/product';
 import { Cart } from './page/cart';
 import { Restaurant } from './page/restaurant';
 import { MyOrders } from './page/FoodOrders';
-import { Style } from "./page/Style";
+import { Amazon } from "./page/Amazon";
 import { Footer1, Footer2, Footer3, Footer4, Footer5 } from "./page/Navbar";
 
 function App() {
@@ -22,7 +22,7 @@ function App() {
   	return (
 		<div className="App">
 			<BrowserRouter>
-				<Navbar />
+				{/* <Navbar /> */}
 				
 				<Routes>
 					<Route exact path='/' element={user? <Home /> : <Navigate to="/auth" /> } >  </Route>
@@ -33,12 +33,12 @@ function App() {
 					<Route exact path='/cart' element={ user ? <Cart /> : <Navigate to="/auth" /> } >  </Route>
 					<Route exact path='/restaurant/:_id' element={ user ? <Restaurant /> : <Navigate to="/auth" /> } >  </Route>
 					<Route exact path='/orders' element={ user? <MyOrders /> : <Navigate to="/auth" /> } >  </Route>
-					<Route exact path='/style' element={ <Style /> } ></Route>
+					<Route exact path='/style' element={ <Amazon /> } ></Route>
 					<Route path='*' element={ <PageNotFound/> } ></Route>
 				</Routes>
 
+				{/* <Footer1/> */}
 				
-				<Footer1 />
 				
 			</BrowserRouter>
 		</div>
