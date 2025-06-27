@@ -31,7 +31,6 @@ export const AmazonNav = () => {
                     <option value="art" > Arts </option>
                     <option value="film"> Film </option>
                     <option value="Sport"> Sports </option>
-
                 </select>
                 <input placeholder='search me'></input>
                 <FontAwesomeIcon icon={faMagnifyingGlass} className='icon' />
@@ -49,11 +48,11 @@ export const AmazonNav = () => {
 
             <div className='flex-column'
             onMouseEnter={ () => setWindow(true) }
-            onMouseLeave={ () => setWindow(false) }  
+            onMouseLeave={ () => setWindow(false) }
             >
                 
                 
-                <div> Hello, Sign in Accounts & Lists </div>
+                <div> Hello, Sign in Accounts & Lists </div> 
                 { popWindow && <div id='sign-in-pop' 
                 onMouseEnter={ () => setWindow(true) } 
                 onMouseLeave={ () => setWindow(false) } 
@@ -67,18 +66,15 @@ export const AmazonNav = () => {
                 <FontAwesomeIcon icon={faCartShopping} className='icon' />
                 Cart
             </div>
-            
-            
         </div>
     )
 }
-
 
 const Card = (props) => {
 
 
     return (
-        <div>
+        <div className='card' >
             <button 
                 style={{ backgroundColor: ' #92002e', color: ' #ffffff', width: "90%" }}
                 onClick={() => { props.setid( 'home' ) } } 
@@ -171,6 +167,7 @@ export const OptionBar = (props) => {
     )
 }
 
+
 export const SlideProduct = () => {
     const ids=[ "img1", "img2", "img3", "img4" ];
     const [ index, setIndex ] = useState(0);
@@ -235,11 +232,177 @@ export const Dev = () => {
                 </div>
                 <h5> Explore More </h5>
             </div>
-            <div className='dev-child'>2</div>
-            <div className='dev-child'>3</div>
-            <div className='dev-child'>4</div>
-            <div className='dev-child'>5</div>
-            <div className='dev-child'>6</div>
+            
+            <div className='dev-child'>
+                <h3> Toys </h3>
+                <div className='dev-row'>
+                    <div className='dev-column' >
+                        <img src={logo} className='toy-image' />
+                        <div> Shop </div>
+                    </div>
+                    <div className='dev-column' >
+                        <img src={logo} className='toy-image' />
+                        <div> Shop </div>
+                    </div>
+                    <div className='dev-column' >
+                        <img src={logo} className='toy-image' />
+                        <div> Shop </div>
+                    </div>
+                </div>
+
+                <div className='dev-row' >
+                    <div className='dev-column' >
+                        <img src={logo} className='toy-image' />
+                        <div> Shop </div>
+                    </div>
+                    <div className='dev-column' >
+                        <img src={logo} className='toy-image' />
+                        Shop 
+                    </div>
+                    <div className='dev-column' >
+                        <img src={logo} className='toy-image' />
+                        <div> Shop </div>
+                    </div>
+                </div>
+                <h5> Explore More </h5>
+            </div>
+
+            <div className='dev-child'>
+                <h3> Toys </h3>
+                <div className='dev-row'>
+                    <div className='dev-column' >
+                        <img src={logo} className='toy-image' />
+                        <div> Shop </div>
+                    </div>
+                    <div className='dev-column' >
+                        <img src={logo} className='toy-image' />
+                        <div> Shop </div>
+                    </div>
+                    <div className='dev-column' >
+                        <img src={logo} className='toy-image' />
+                        <div> Shop </div>
+                    </div>
+                </div>
+
+                <div className='dev-row' >
+                    <div className='dev-column' >
+                        <img src={logo} className='toy-image' />
+                        <div> Shop </div>
+                    </div>
+                    <div className='dev-column' >
+                        <img src={logo} className='toy-image' />
+                        Shop 
+                    </div>
+                    <div className='dev-column' >
+                        <img src={logo} className='toy-image' />
+                        <div> Shop </div>
+                    </div>
+                </div>
+                <h5> Explore More </h5>
+            </div>
+
+            <div className='dev-child'>
+                <h3> Toys </h3>
+                <div className='dev-row'>
+                    <div className='dev-column' >
+                        <img src={logo} className='toy-image' />
+                        <div> Shop </div>
+                    </div>
+                    <div className='dev-column' >
+                        <img src={logo} className='toy-image' />
+                        <div> Shop </div>
+                    </div>
+                    <div className='dev-column' >
+                        <img src={logo} className='toy-image' />
+                        <div> Shop </div>
+                    </div>
+                </div>
+
+                <div className='dev-row' >
+                    <div className='dev-column' >
+                        <img src={logo} className='toy-image' />
+                        <div> Shop </div>
+                    </div>
+                    <div className='dev-column' >
+                        <img src={logo} className='toy-image' />
+                        Shop 
+                    </div>
+                    <div className='dev-column' >
+                        <img src={logo} className='toy-image' />
+                        <div> Shop </div>
+                    </div>
+                </div>
+                <h5> Explore More </h5>
+            </div>
+
+            <div className='dev-child'>
+                <h3> Toys </h3>
+                <div className='dev-row'>
+                    <div className='dev-column' >
+                        <img src={logo} className='toy-image' />
+                        <div> Shop </div>
+                    </div>
+                    <div className='dev-column' >
+                        <img src={logo} className='toy-image' />
+                        <div> Shop </div>
+                    </div>
+                    <div className='dev-column' >
+                        <img src={logo} className='toy-image' />
+                        <div> Shop </div>
+                    </div>
+                </div>
+
+                <div className='dev-row' >
+                    <div className='dev-column' >
+                        <img src={logo} className='toy-image' />
+                        <div> Shop </div>
+                    </div>
+                    <div className='dev-column' >
+                        <img src={logo} className='toy-image' />
+                        Shop 
+                    </div>
+                    <div className='dev-column' >
+                        <img src={logo} className='toy-image' />
+                        <div> Shop </div>
+                    </div>
+                </div>
+                <h5> Explore More </h5>
+            </div>
+
+            <div className='dev-child'>
+                <h3> Toys </h3>
+                <div className='dev-row'>
+                    <div className='dev-column' >
+                        <img src={logo} className='toy-image' />
+                        <div> Shop </div>
+                    </div>
+                    <div className='dev-column' >
+                        <img src={logo} className='toy-image' />
+                        <div> Shop </div>
+                    </div>
+                    <div className='dev-column' >
+                        <img src={logo} className='toy-image' />
+                        <div> Shop </div>
+                    </div>
+                </div>
+
+                <div className='dev-row' >
+                    <div className='dev-column' >
+                        <img src={logo} className='toy-image' />
+                        <div> Shop </div>
+                    </div>
+                    <div className='dev-column' >
+                        <img src={logo} className='toy-image' />
+                        Shop 
+                    </div>
+                    <div className='dev-column' >
+                        <img src={logo} className='toy-image' />
+                        <div> Shop </div>
+                    </div>
+                </div>
+                <h5> Explore More </h5>
+            </div>
+
         </div>
     )
 }
@@ -293,7 +456,7 @@ const Footer = () => {
 
             <div className='grid' >
                 <div className='grid-child' > Lorem ipsum dolor, </div>
-                <div className='grid-child' > Lorem ipsum dolor,3r23r3223r 23r23r2r3 </div>
+                <div className='grid-child' > Lorem ipsum dolor,3r 23r3223r 23r23r2r3 </div>
                 <div className='grid-child' > Lorem ipsum dolor, </div>
                 <div className='grid-child' > Lorem ipsum dolor, </div>
                 <div className='grid-child' > Lorem ipsum dolor, r23r r32r23r 3r23r2</div>
@@ -311,6 +474,7 @@ const Footer = () => {
     )
 }
 
+
 export const Amazon = () => {
     const [ leftslideOn, setLeftSlide ] = useState(false);
     const toggleSlide = () => {
@@ -326,10 +490,9 @@ export const Amazon = () => {
             <SlideProduct />
             <Dev />
             <SlideBar />
-            <Dev />
-            <SlideBar />
+            
             { leftslideOn && <LeftSlide toggle={toggleSlide} /> }
-            <Footer />
+            <Footer /> 
             
         </div>
     )

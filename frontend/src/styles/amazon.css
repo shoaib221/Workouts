@@ -1,15 +1,25 @@
 
+
+* {
+	box-sizing: border-box;
+}
+
 .style {
 	width: 100%;
+	min-width: 800px;
+	margin: 0;
+	padding: 0;
+	border: 0;
 }
 
 
 .slide-product {
 	height: 200px;
 	position: relative;
-	min-width: 830px;
+	width: 100%;
 	background-color: white;
 }
+
 
 .slide-product #img1 {
 	background-image: url('../images/shop_image1.jpg');
@@ -58,9 +68,9 @@
 }
 
 #amazon-nav {
-  height: 60px;
-  font-size: 14px;
-	
+	height: 60px;
+	font-size: 12px;
+	width: 100%;
 }
 
 
@@ -91,7 +101,7 @@
 	flex-direction: row;
 	height: 80%;
 	margin: 0;
-	gap: 10px;
+	gap: 2px;
 	padding: 4px;
 	border: 1px solid  #00152d;
 	align-items: center;
@@ -154,23 +164,24 @@
 
 .style .dev {
 	display: flex;
-	min-width: 850px;
+	width: 100%;
 	margin: 0;
-	padding: 10px;
+	
 	border: 0;
 	background-color: rgb(255, 255, 255);
 	flex-wrap: wrap;
-	overflow-y: auto;
+	
 	justify-content: space-evenly;
-	gap: 10px;
+	gap: 5px;
+	padding: 5px;
 
 }
 
 .style .dev-child {
-	height: 300px;
-	width: 400px;
-	min-height: 200px;
-	min-width: 200px;
+	height: 250px;
+	
+	
+	min-width: 370px;
 	background-color: #ded9d9;
 	flex-grow: 1;
 	display: flex;
@@ -264,16 +275,21 @@
 .style .grid {
 	display: grid;
 	justify-content: center;
-	grid-template-columns: repeat(5, 200px);
+	grid-template-columns: repeat(5, minmax(100px, 150px));
 	margin: 10px;
 	gap: 10px;
 	
 }
 
+.style .grid-child {
+	font-size: 12px;
+	text-align: left;
+}
+
 .style #last-grid.grid {
 	display: grid;
 	justify-content: center;
-	grid-template-columns: repeat(3, 200px);
+	grid-template-columns: repeat(3, minmax(100px, 150px));
 }
 
 .style .oplink {
