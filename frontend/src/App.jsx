@@ -22,7 +22,7 @@ function App() {
   	return (
 		<div className="App">
 			<BrowserRouter>
-				{/* <Navbar /> */}
+				
 				
 				<Routes>
 					<Route exact path='/' element={user? <Home /> : <Navigate to="/auth" /> } >  </Route>
@@ -37,7 +37,7 @@ function App() {
 					<Route path='*' element={ <PageNotFound/> } ></Route>
 				</Routes>
 
-				{/* <Footer1/> */}
+
 				
 				
 			</BrowserRouter>

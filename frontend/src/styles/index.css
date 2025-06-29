@@ -5,11 +5,30 @@
 	margin: 0;
 	padding: 0;
 	border: 0;
+	box-sizing: border-box;
 	
 }
 
+body {
+	font-family: "Poppins";
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
+	background-color: red;
+}
+
 #root {
-	min-width: 800px;
+	
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
+	background-color: blue;
+	
+	width: 100%;
+	
+
 
 }
 
@@ -19,13 +38,15 @@
 	flex-direction: column;
 	align-items: center;
 	justify-content: top;
+	background-color: rgb(59, 62, 64);
 	color: white;
+	height: 100%;
+	width: 100%;
+	min-height: 900px;
+	min-width: 800px;
 }
 
-body {
-	font-family: "Poppins";
-	margin: 0;
-}
+
 
 
 
@@ -280,19 +301,6 @@ a.link {
 
 
 
-
-:root {
-	--primary: #1aac83;
-	--error: #e7185a;
-}
-
-#root {
-	background-color: #282c34;
-	min-height: 700px;
-}
-
-
-
 /* ///////////////// work out /////////// */
 .workouts {
 	display: flex;
@@ -321,3 +329,53 @@ a.link {
 .update-workout {
 	border: 1px solid #1aac83;
 }
+
+
+
+.flex-row {
+	display: flex;
+	flex-direction: row;
+	height: 100%;
+	width: 100%;
+	justify-content: center;
+	align-items: center;
+}
+
+.flex-column {
+	display: flex;
+	flex-direction: column;
+	height: 100%;
+	width: 100%;
+	justify-content: center;
+	align-items: center;
+}
+
+
+.auth {
+	/* border: 1px solid white; */
+	height: 600px;
+	width: 600px;
+	background-color: #1d0d36;
+	color: white;
+}
+
+.auth button {
+	background-color: azure;
+	color: #030008;
+}
+
+.register {
+	/* border: 1px solid rgb(24, 24, 183); */
+	height: 70%;
+	width: 100%;
+	display: flex;
+	justify-content: center;
+	flex-direction: column;
+	
+}
+
+button#google {
+	background-color: azure;
+	color: #030008;
+}
+

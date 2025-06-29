@@ -34,32 +34,37 @@ const Login = () => {
 
 
     return (
-        <div className="Login" >
-            { error && <p>  { error } </p> }
-            <form className="login" onSubmit={handleSubmit}>
-                <h3>Log In</h3>
-                
-                
-                <input 
-                style={{ display: "inline" }}
-                placeholder="Email"
-                type="email" 
-                onChange={(e) => setEmail(e.target.value)} 
-                value={email} 
-                /> 
-                
+        <div className="register flex-column" >
+            
+            
+            <h3>Login</h3>
 
+            { error && <div>  { error } </div> }
+
+            <div className="flex-row" style={{ height: "40px", width: "300px" }} >
                 
                 <input 
-                    placeholder="Password"
-                    type="password" 
-                    onChange={(e) => setPassword(e.target.value)} 
-                    value={password} 
+                    type="email" 
+                    onChange={(e) => setEmail(e.target.value)} 
+                    value={email}
+                    placeholder="Email" 
                 />
+            </div>
+            
 
-                { !loading && <button> Submit </button> }
-                
-            </form>
+            <div className="flex-row" style={{ height: "40px", width: "300px" }} >
+            <input 
+                type="password" 
+                onChange={(e) => setPassword(e.target.value)} 
+                value={password}
+                placeholder="Password" 
+            />
+
+            </div>
+
+            { !loading && <button onClick={handleSubmit} > Submit </button> }
+            
+        
         </div>
     )
 }
@@ -91,28 +96,35 @@ const Register = () => {
     }
 
     return (
-        <div className="Register" >
+        <div className="register flex-column" >
             { error && <p>  { error } </p> }
-            <form className="register" onSubmit={handleSubmit}>
+            
                 <h3>Register</h3>
                 
-                <label>Email address:</label>
-                <input 
-                type="email" 
-                onChange={(e) => setEmail(e.target.value)} 
-                value={email} 
-                />
-
-                <label>Password:</label>
-                <input 
-                type="password" 
-                onChange={(e) => setPassword(e.target.value)} 
-                value={password} 
-                />
-
-                { !loading && <button> Submit </button> }
+                <div className="flex-row" style={{ height: "40px", width: "300px" }} >
+                    
+                    <input 
+                        type="email" 
+                        onChange={(e) => setEmail(e.target.value)} 
+                        value={email}
+                        placeholder="Email" 
+                    />
+                </div>
                 
-            </form>
+
+                <div className="flex-row" style={{ height: "40px", width: "300px" }} >
+                <input 
+                    type="password" 
+                    onChange={(e) => setPassword(e.target.value)} 
+                    value={password}
+                    placeholder="Password" 
+                />
+
+                </div>
+
+                { !loading && <button onClick={handleSubmit} > Submit </button> }
+                
+            
         </div>
     )
 }
@@ -120,29 +132,31 @@ const Register = () => {
 
 export const Auth = () => {
     const [ login, toggle ] = useState(true);
-    const [ option, changeOption ] = useState("register");
+    const [ option, changeOption ] = useState("Register");
 
     const onChange = () =>
     {
-        if( option==="register" ) 
+        if( option==="Register" ) 
         {
-            changeOption("login");
+            changeOption("Login");
             toggle(false);
         }
         else
         {
-            changeOption("register");
+            changeOption("Register");
             toggle(true);
         }
     }
 
     return (
-        <div className="Auth">
+        <div className="auth flex-column">
 
             { login && <Login/> }
             { !login && <Register /> }
 
             <button onClick={onChange} > { option } </button>
+
+            <div> Or </div>
 
             <GoogleAuth />
 

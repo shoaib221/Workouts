@@ -37,11 +37,8 @@ export const GoogleAuth = () => {
         flow: "auth-code"
     })
 
-    return (
-        <div className="google-auth" >
-            
-            <button onClick={googleLogin}> Enter With Google </button>
-        </div>
-    )
+    return <button id="google" onClick={googleLogin}> Enter With Google </button>
+        
+    
 }
 
