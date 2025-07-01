@@ -116,10 +116,21 @@ const GoogleLogin = async ( req, res, next ) => {
     
 }
 
+const FetchUsers = async (req, res, next) => {
+    console.log( "fetching users" );
+    try {
+        const users = await User.find({});
+        res.status(200).json( { users } );
+    } catch (error) {
+        res.status(400).json( {error: error.message} );
+    }
+}
+
 authRouter.post( "/register", Register );
 authRouter.post( "/login", Login);
 authRouter.get( "/google", GoogleLogin );
 authRouter.use( requireAuth );
 authRouter.get( "/init", Init );
+authRouter.get( "/users", FetchUsers );
 
 module.exports = { authRouter };

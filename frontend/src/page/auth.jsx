@@ -130,6 +130,19 @@ const Register = () => {
 }
 
 
+export const Profile = () => {
+
+
+    return (
+        <div className="profile" >
+            Hello
+
+            <input type="file" accept="image/*" />
+        </div>
+    )
+}
+
+
 export const Auth = () => {
     const [ login, toggle ] = useState(true);
     const [ option, changeOption ] = useState("Register");
@@ -149,7 +162,7 @@ export const Auth = () => {
     }
 
     return (
-        <div className="auth flex-column">
+        <div className="auth">
 
             { login && <Login/> }
             { !login && <Register /> }

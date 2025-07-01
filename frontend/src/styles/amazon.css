@@ -1,6 +1,6 @@
 
 
-
+/* amazon.css */
 
 .style {
 	width: 100%;
@@ -50,7 +50,8 @@
 	left: 0px;
 	height: 150px;
 	width: 50px;
-	background-color: rgb(255, 255, 255, 0.4);
+	background-color: rgb(255, 255, 255, 0.5);
+	color: #160094;
 	font-size: 30px;
 }
 
@@ -61,7 +62,8 @@
 	height: 150px;
 	width: 50px;
 	right: 0px;
-	background-color: rgb(255, 255, 255, 0.4);
+	background-color: rgb(255, 255, 255, 0.5);
+	color: #160094;
 	font-size: 30px;
 }
 

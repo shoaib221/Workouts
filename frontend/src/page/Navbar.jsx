@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { useLogout } from "../hooks/auth";
 import { useContext } from "react";
 import { AuthContext } from "../context/authContext";
-
+import { Profile } from "./auth";
 
 
 export const Navbar = () => {
@@ -18,6 +18,7 @@ export const Navbar = () => {
             <div className="cendiv" > <Link className="link" to='/product' > Product </Link> </div>
             <div className="cendiv" > <Link className="link" to="/orders"> Orders </Link> </div>
             <div className="cendiv" > <Link className="link" to="/style"> Style </Link> </div>
+            <div className="cendiv" > <Link className="link" to="/profile"> Profile </Link> </div>
 
             { user && 
                 <div >  

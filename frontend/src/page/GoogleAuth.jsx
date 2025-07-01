@@ -1,5 +1,5 @@
 
-import { useGoogleLogin } from '@react-oauth/google'
+import { useGoogleLogin } from '@react-oauth/google';
 import { googleAuth } from '../api';
 import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../context/authContext';
@@ -8,7 +8,7 @@ import { Auth } from './auth';
 
 export const GoogleAuth = () => {
     const navigate = useNavigate();
-	const { dispatch } = useContext(AuthContext)
+	const { dispatch } = useContext(AuthContext);
 
     const responseGoogle = async (authResult) => {
 		try {

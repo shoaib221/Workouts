@@ -52,7 +52,7 @@ export const AmazonNav = () => {
             >
                 
                 
-                <div> Hello, Sign in Accounts & Lists </div> 
+                <div> Sign in or Accounts </div> 
                 { popWindow && <div id='sign-in-pop' 
                 onMouseEnter={ () => setWindow(true) } 
                 onMouseLeave={ () => setWindow(false) } 
@@ -439,11 +439,11 @@ const Footer = () => {
 
     return (
         <div id='footer' >
-            <div id='back-to-top' > 
+            <div id='back-to-top' >
                 Back to top
             </div>
 
-            <div className='grid' > 
+            <div className='grid' >
 
                 <div className='grid-child' > Lorem ipsum dolor, </div>
                 <div className='grid-child' > Lorem ipsum dolor, </div>
@@ -456,7 +456,7 @@ const Footer = () => {
 
             <div className='grid' >
                 <div className='grid-child' > Lorem ipsum dolor, </div>
-                <div className='grid-child' > Lorem ipsum dolor,3r 23r3223r 23r23r2r3 </div>
+                <div className='grid-child' > Lorem ipsum dolor, 3r 23r3 223r 23r2 3r2r3 </div>
                 <div className='grid-child' > Lorem ipsum dolor, </div>
                 <div className='grid-child' > Lorem ipsum dolor, </div>
                 <div className='grid-child' > Lorem ipsum dolor, r23r r32r23r 3r23r2</div>
@@ -468,8 +468,6 @@ const Footer = () => {
                 <div className='grid-child' > Lorem ipsum dolor, </div>
             </div>
 
-            
-            
         </div>
     )
 }

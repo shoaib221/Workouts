@@ -1,35 +1,23 @@
+
 /* google font */
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;800&family=VT323&display=swap');
 
+
+/* index.css */
 * {
 	margin: 0;
 	padding: 0;
 	border: 0;
 	box-sizing: border-box;
-	
 }
 
 body {
 	font-family: "Poppins";
-	display: flex;
-	flex-direction: row;
-	justify-content: center;
-	align-items: center;
 	background-color: red;
 }
 
 #root {
-	
-	display: flex;
-	flex-direction: row;
-	justify-content: center;
-	align-items: center;
-	background-color: blue;
-	
-	width: 100%;
-	
-
-
+	background-color: rgb(59, 62, 64);
 }
 
 .App {
@@ -40,10 +28,8 @@ body {
 	justify-content: top;
 	background-color: rgb(59, 62, 64);
 	color: white;
-	height: 100%;
-	width: 100%;
-	min-height: 900px;
 	min-width: 800px;
+	min-height: 800px;
 }
 
 
@@ -332,19 +318,19 @@ a.link {
 
 
 
-.flex-row {
+.auth .flex-row {
 	display: flex;
 	flex-direction: row;
-	height: 100%;
+	
 	width: 100%;
 	justify-content: center;
 	align-items: center;
 }
 
-.flex-column {
+.auth .flex-column {
 	display: flex;
 	flex-direction: column;
-	height: 100%;
+	
 	width: 100%;
 	justify-content: center;
 	align-items: center;
@@ -366,16 +352,27 @@ a.link {
 
 .register {
 	/* border: 1px solid rgb(24, 24, 183); */
-	height: 70%;
+	height: 400px;
 	width: 100%;
 	display: flex;
 	justify-content: center;
 	flex-direction: column;
 	
+	
+}
+
+button {
+	background-color: rgb(100, 9, 9);
+	color: white;
 }
 
 button#google {
 	background-color: azure;
 	color: #030008;
+}
+
+.profile {
+	background-color: #e81e5e;
+	width: 80%;
 }
 

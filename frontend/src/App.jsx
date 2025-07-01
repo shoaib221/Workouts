@@ -3,7 +3,7 @@ import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { Workouts } from './page/workouts';
 import { Home } from './page/home';
 import { Navbar, OptionBar } from './page/Navbar';
-import { Auth } from './page/auth';
+import { Auth, Profile } from './page/auth';
 import { AuthContext } from './context/authContext';
 import { useContext } from 'react';
 import { GoogleAuth } from './page/GoogleAuth';
@@ -14,6 +14,7 @@ import { Restaurant } from './page/restaurant';
 import { MyOrders } from './page/FoodOrders';
 import { Amazon } from "./page/Amazon";
 import { Footer1, Footer2, Footer3, Footer4, Footer5 } from "./page/Navbar";
+import { Socket } from "./page/socket";
 
 function App() {
 	const { user } = useContext( AuthContext );
@@ -22,7 +23,7 @@ function App() {
   	return (
 		<div className="App">
 			<BrowserRouter>
-				
+				{ user && <Navbar /> }
 				
 				<Routes>
 					<Route exact path='/' element={user? <Home /> : <Navigate to="/auth" /> } >  </Route>
@@ -33,7 +34,9 @@ function App() {
 					<Route exact path='/cart' element={ user ? <Cart /> : <Navigate to="/auth" /> } >  </Route>
 					<Route exact path='/restaurant/:_id' element={ user ? <Restaurant /> : <Navigate to="/auth" /> } >  </Route>
 					<Route exact path='/orders' element={ user? <MyOrders /> : <Navigate to="/auth" /> } >  </Route>
+					<Route exact path='/profile' element={ user? <Profile /> : <Navigate to="/auth" /> } >  </Route>
 					<Route exact path='/style' element={ <Amazon /> } ></Route>
+					<Route exact path='/socket' element={ <Socket /> } ></Route>
 					<Route path='*' element={ <PageNotFound/> } ></Route>
 				</Routes>
 
