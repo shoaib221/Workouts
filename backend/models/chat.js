@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 
 const MessageSchema = new mongoose.Schema({
 
-    // unique - name & owner
+    
     sender: {
         type: String,
         required: true,
@@ -12,7 +12,7 @@ const MessageSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
-    content: {
+    text: {
         type: String
     }
 });

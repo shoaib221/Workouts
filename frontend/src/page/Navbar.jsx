@@ -19,6 +19,7 @@ export const Navbar = () => {
             <div className="cendiv" > <Link className="link" to="/orders"> Orders </Link> </div>
             <div className="cendiv" > <Link className="link" to="/style"> Style </Link> </div>
             <div className="cendiv" > <Link className="link" to="/profile"> Profile </Link> </div>
+            <div className="cendiv" > <Link className="link" to="/chat"> Chat </Link> </div>
 
             { user && 
                 <div >  

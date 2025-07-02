@@ -36,7 +36,7 @@ function App() {
 					<Route exact path='/orders' element={ user? <MyOrders /> : <Navigate to="/auth" /> } >  </Route>
 					<Route exact path='/profile' element={ user? <Profile /> : <Navigate to="/auth" /> } >  </Route>
 					<Route exact path='/style' element={ <Amazon /> } ></Route>
-					<Route exact path='/socket' element={ <Socket /> } ></Route>
+					<Route exact path='/chat' element={ user ? <Socket /> : <Navigate to="/auth" /> } ></Route>
 					<Route path='*' element={ <PageNotFound/> } ></Route>
 				</Routes>
 

@@ -6,6 +6,7 @@ import { io } from 'socket.io-client';
 
 export const AuthContext = createContext();
 
+
 export const authReducer = (state, action) => {
     if (action.type === 'LOGIN') return { user: action.payload };
     else if ( action.type === 'LOGOUT' ) return { user: null };
@@ -38,16 +39,9 @@ export const AuthContextProvider = ({ children }) => {
         } catch (err) {
             console.error(err.message);
         }
-        
     }
 
-    
-
-    useEffect(() => {
-        
-        Init();
-        
-    }, [])
+    useEffect(() => {  Init(); }, [])
 
     useEffect( () => {
         if(state.user)
@@ -60,19 +54,12 @@ export const AuthContextProvider = ({ children }) => {
             } )
             setSocket( client );
             if(socket && !socket.connected ) socket.connect();
-
-            if( socket && socket.connected )
-            {
-                socket.on( "OnlineUsers", (data) => {
-                    setOnlineUsers(data);
-                } )
-            }
         }
         else
         {
             if(socket && socket.connected) socket.disconnect();
         }
-            
+        
     }, [state.user] )
 
     //console.log('AuthContext state:', state)

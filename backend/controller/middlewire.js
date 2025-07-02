@@ -16,6 +16,7 @@ const requireAuth = async (req, res, next) => {
 		const ret = await User.findOne({_id}); 
 		if( !ret ) throw Error("No such user"); 
 		req.user_id = ret._id.toString(); 
+		req.username = ret.username;
 		next(); 
 	} catch (err) {
 		console.log(err.message, "backend");

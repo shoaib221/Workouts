@@ -1,42 +1,23 @@
-require('dotenv').config();
+console.log("server");
 
-const express = require("express");
-const cors= require("cors");
-const { mainRouter }= require("./routes.js");
 const mongoose = require("mongoose");
-const http  =  require("http");
-const { Server } = require("socket.io");
 const jwt = require('jsonwebtoken');
+
+const { io, onlineUserMap, app, server }  =  require("./utils/socket.js")
+const { mainRouter }= require("./routes.js");
 const { User } = require("./models/auth.js");
 
-const onlineUserMap = {};
 
-const getSocketID = (userId) => {
-	return onlineUserMap[userId];
-}
+app.use(mainRouter);
+
+app.use( ( req, res, next ) => {
+	console.log("backend", new Date().toLocaleString() );
+	
+} );
 
 
 mongoose.connect(process.env.MONGO_URI).then(() => {
 	console.log( "Connected to MongoDB" );
-	
-	const app = express(); 
-	const server = http.createServer(app);
-
-
-	app.use(cors());
-	app.use(express.json());
-	app.use(mainRouter);
-	
-	app.use( ( req, res, next ) => {
-		console.log("backend", new Date().toLocaleString() );
-		
-	} );
-
-
-	const io = new Server( server, {
-		cors: "http://localhost:3000"
-	} );
-
 	
 
 	io.on( "connection", async (stream) => {
@@ -59,10 +40,15 @@ mongoose.connect(process.env.MONGO_URI).then(() => {
 			if( !ret ) throw Error("No such user"); 
 			console.log( "A user connected in websocket", stream.id );
 			
-			onlineUserMap[ ret._id.toString() ] = stream.id;
-			stream.emit( "OnlineUsers", Object.keys(onlineUserMap) )
+			onlineUserMap[ ret.username.toString() ] = stream.id;
+			io.emit( "OnlineUsers", Object.keys(onlineUserMap) )
 			stream.on( "chat-shoaib", ( data ) => console.log( "chat-shoaib", data ) );
-			stream.on( "disconnect", () => console.log( "A user disconnected from web socket", stream.id ) );
+			stream.on( "disconnect", () => {
+				console.log( "A user disconnected from web socket", stream.id)
+				delete onlineUserMap[ ret.username.toString() ]
+				io.emit( "OnlineUsers", Object.keys(onlineUserMap) );
+				
+			}  );
 
 		}
 		catch(error) {
@@ -80,4 +66,7 @@ mongoose.connect(process.env.MONGO_URI).then(() => {
 
 }).catch((err) => console.log(`Error: ${err}`));
 
-module.exports = { onlineUserMap }
+
+
+
+

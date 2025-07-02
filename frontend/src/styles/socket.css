@@ -36,3 +36,21 @@
 #leftbar button.inactive {
     background-color: blue;
 }
+
+.chatty #message-body {
+    display: flex;
+    flex-direction: column;
+    overflow: auto;
+}
+
+.chatty #message-body .received {
+    margin-right: auto;
+    background-color: rgb(14, 0, 209);
+    margin-top: 10px;
+}
+
+.chatty #message-body .sent {
+    margin-left: auto;
+    background-color: rgb(181, 0, 0);
+    margin-top: 10px;
+}
