@@ -43,25 +43,6 @@ export const AuthContextProvider = ({ children }) => {
 
     useEffect(() => {  Init(); }, [])
 
-    useEffect( () => {
-        if(state.user)
-        {
-            console.log("logged in");
-            const client = io( 'http://localhost:4000', {
-                query: {
-                    auth: `Bearer ${state.user.token}`
-                }
-            } )
-            setSocket( client );
-            if(socket && !socket.connected ) socket.connect();
-        }
-        else
-        {
-            if(socket && socket.connected) socket.disconnect();
-        }
-        
-    }, [state.user] )
-
     //console.log('AuthContext state:', state)
     
     return (

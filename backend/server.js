@@ -1,14 +1,17 @@
-console.log("server");
+//console.log("server");
 
 const mongoose = require("mongoose");
 const jwt = require('jsonwebtoken');
 
-const { io, onlineUserMap, app, server }  =  require("./utils/socket.js")
+
+const { io, onlineUserMap, app, server }  =  require("./utils/socket.js");
 const { mainRouter }= require("./routes.js");
 const { User } = require("./models/auth.js");
+const { Message }  =  require("./models/chat.js");
 
 
 app.use(mainRouter);
+
 
 app.use( ( req, res, next ) => {
 	console.log("backend", new Date().toLocaleString() );
@@ -41,14 +44,38 @@ mongoose.connect(process.env.MONGO_URI).then(() => {
 			console.log( "A user connected in websocket", stream.id );
 			
 			onlineUserMap[ ret.username.toString() ] = stream.id;
-			io.emit( "OnlineUsers", Object.keys(onlineUserMap) )
+			
+			io.emit( "onlineUsers", Object.keys(onlineUserMap) )
+			
 			stream.on( "chat-shoaib", ( data ) => console.log( "chat-shoaib", data ) );
+			
 			stream.on( "disconnect", () => {
 				console.log( "A user disconnected from web socket", stream.id)
 				delete onlineUserMap[ ret.username.toString() ]
-				io.emit( "OnlineUsers", Object.keys(onlineUserMap) );
+				io.emit( "onlineUsers", Object.keys(onlineUserMap) );
 				
 			}  );
+
+			stream.on( "sendMessage", async (data) => {
+				const new_message = new Message ({
+					sender: data.sender,
+					receiver: data.receiver,
+					text: data.text
+				})
+
+				const saved_message = await new_message.save();
+
+				if( onlineUserMap[data.receiver] ) {
+					io.to( onlineUserMap[data.receiver] ).emit( "newMessage", saved_message )
+				}
+
+				if( onlineUserMap[data.sender] )
+				{
+					io.to( onlineUserMap[data.sender] ).emit( "newMessage", saved_message )
+				}
+
+				console.log("successfull");
+			} )
 
 		}
 		catch(error) {

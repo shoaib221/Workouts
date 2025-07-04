@@ -1,0 +1,15 @@
+
+
+#test1 {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+button.regular {
+    background-color: aqua;
+}
+
+button.special {
+    background-color: tomato;
+}

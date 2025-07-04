@@ -3,7 +3,6 @@ const mongoose = require('mongoose');
 
 const MessageSchema = new mongoose.Schema({
 
-    
     sender: {
         type: String,
         required: true,
@@ -14,8 +13,12 @@ const MessageSchema = new mongoose.Schema({
     },
     text: {
         type: String
+    },
+    media: {
+        type: String
     }
-});
+    
+}, { timestamps: true } );
 
 const Message = mongoose.model('Message', MessageSchema);
 

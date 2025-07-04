@@ -16,6 +16,6 @@ const io = new Server( server, {
 } );
 
 
-const onlineUserMap = { "ek": "dui" };
+const onlineUserMap = {  };
 
 module.exports = { app, io, onlineUserMap, server }

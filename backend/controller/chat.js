@@ -1,4 +1,4 @@
-console.log("controller");
+//console.log("controller");
 
 const express = require("express");
 const chatRouter = express.Router();
@@ -6,14 +6,14 @@ const bcrypt = require("bcrypt");
 const validaor = require( "validator" );
 const jwt = require("jsonwebtoken");
 const axios = require("axios");
-
 const { User } = require( "../models/auth.js" );
 const { requireAuth } = require("./middlewire.js");
 const { oauth2Client } = require("../utils/googleClient.js");
 const { onlineUserMap, io }  = require("../utils/socket.js");
 const { Message } = require("../models/chat.js");
+const { cloudinary } = require("../utils/cloudinary.js")
 
-console.log( "controller", onlineUserMap)
+//console.log( "controller", onlineUserMap);
 
 const fetchMessage  = async ( req, res, next ) => {
 	console.log("fetch message");
@@ -31,15 +31,16 @@ const fetchMessage  = async ( req, res, next ) => {
 			],
 		});
 
-		console.log(messages);
+		//console.log(messages);
 
 		res.status(200).json( messages );
 		next();
 	} catch (error) {
 		res.status(400).json({ error: error.message  });
 	}
-    
 }
+
+
 
 const sendMessage = async ( req, res, next ) => {
 	console.log( "send message" );
@@ -71,12 +72,54 @@ const sendMessage = async ( req, res, next ) => {
     
 }
 
+const FetchUsers = async ( req, res, next ) => {
 
+	try {
+		const users = await User.find( { username: { $ne: req.username } } )
+		let onlineUsers = Object.keys(onlineUserMap)
+		onlineUsers = onlineUsers.filter( x => x !== req.username )
+		res.status(200).json( { users, onlineUsers } )
+		next()
+	} catch (err) {
+		res.status(400).json( { error: err.message } ) 
+	}	
+}
+
+
+const UploadImage = async ( req, res, next ) => {
+	console.log( "upload image" )
+	try {
+		const { image } = req.body
+
+		if(!image) 
+		{
+			throw Error( "image not found" )
+		}
+		
+		console.log( "image found", image )
+
+		const response = await cloudinary.uploader.upload(image)
+	
+
+		res.status(200).json( { msg: "image uploaded", image: response.secure_url } )
+		console.log("successful", response.secure_url)
+		
+
+		
+	} catch (err) {
+		console.log("error", err.error)
+		res.status(400).json( { error: err.message } )
+		
+	} finally {
+		next();
+	}
+}
 
 chatRouter.use( requireAuth );
-chatRouter.post( "/fetchmessage", fetchMessage)
-chatRouter.post( "/sendmessage", sendMessage )
-
+chatRouter.post( "/fetchmessage", fetchMessage);
+chatRouter.post( "/sendmessage", sendMessage );
+chatRouter.get( "/users", FetchUsers );
+chatRouter.post( "/image", UploadImage );
 module.exports = { chatRouter };
 
 
