@@ -11,7 +11,7 @@ const { requireAuth } = require("./middlewire.js");
 const { oauth2Client } = require("../utils/googleClient.js");
 const { onlineUserMap, io }  = require("../utils/socket.js");
 const { Message } = require("../models/chat.js");
-const { cloudinary } = require("../utils/cloudinary.js")
+const { cloudinary } = require("../utils/cloudinary.js");
 
 //console.log( "controller", onlineUserMap);
 
@@ -69,7 +69,6 @@ const sendMessage = async ( req, res, next ) => {
 		console.log(err.message);
 		res.status(400).json( {error: err.message} );
 	}
-    
 }
 
 const FetchUsers = async ( req, res, next ) => {
@@ -81,34 +80,25 @@ const FetchUsers = async ( req, res, next ) => {
 		res.status(200).json( { users, onlineUsers } )
 		next()
 	} catch (err) {
-		res.status(400).json( { error: err.message } ) 
+		res.status(400).json( { error: err.message } )
 	}	
 }
 
 
-const UploadImage = async ( req, res, next ) => {
+const UploadImageClodianry = async ( req, res, next ) => {
 	console.log( "upload image" )
 	try {
-		const { image } = req.body
 
-		if(!image) 
-		{
-			throw Error( "image not found" )
-		}
 		
-		console.log( "image found", image )
-
+		const { image } = req.body;
+		
+		if(!image) throw Error( "image not found" )
 		const response = await cloudinary.uploader.upload(image)
-	
-
-		res.status(200).json( { msg: "image uploaded", image: response.secure_url } )
-		console.log("successful", response.secure_url)
-		
-
-		
+		res.status(200).json( { msg: "image uploaded", secure_url: response.secure_url } )
+		console.log( "successful", response.secure_url )
 	} catch (err) {
 		console.log("error", err.error)
-		res.status(400).json( { error: err.message } )
+		res.status(400).json( { error: err.error } )
 		
 	} finally {
 		next();
@@ -119,7 +109,7 @@ chatRouter.use( requireAuth );
 chatRouter.post( "/fetchmessage", fetchMessage);
 chatRouter.post( "/sendmessage", sendMessage );
 chatRouter.get( "/users", FetchUsers );
-chatRouter.post( "/image", UploadImage );
+chatRouter.post( "/image", UploadImageClodianry );
 module.exports = { chatRouter };
 
 

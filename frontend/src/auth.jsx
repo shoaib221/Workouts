@@ -1,8 +1,8 @@
 
 
 import { useState, useEffect } from "react";
-import { registerURL, loginURL, logoutURL } from "../urls.js";
-import { useLogin, useSignup } from "../hooks/auth.js";
+import { registerURL, loginURL, logoutURL } from "./urls.js";
+import { useLogin, useSignup } from "./hooks/auth.js";
 import { Link } from "react-router-dom";
 import { GoogleAuth } from "./GoogleAuth.jsx";
 

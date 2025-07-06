@@ -2,7 +2,6 @@
 
 import { createContext, useReducer, useEffect, useState } from 'react';
 import { initURL } from '../urls';
-import { io } from 'socket.io-client';
 
 export const AuthContext = createContext();
 

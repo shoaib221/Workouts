@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { useLogout } from "../hooks/auth";
 import { useContext } from "react";
 import { AuthContext } from "../context/authContext";
-import { Profile } from "./auth";
+import { Profile } from "../auth";
 
 
 export const Navbar = () => {

@@ -28,7 +28,7 @@ mongoose.connect(process.env.MONGO_URI).then(() => {
 
 		const auth = stream.handshake.query.auth;
 		
-		if (!auth) console.log("No auth")
+		if (!auth) console.log("No auth");
 		
 		//stream.close( 1008, "Not Authorized" )
 
@@ -37,7 +37,7 @@ mongoose.connect(process.env.MONGO_URI).then(() => {
 		
 
   		try {
-    		const { _id } = jwt.verify(token, process.env.JWT_SECRET) 
+    		const { _id } = jwt.verify(token, process.env.JWT_SECRET); 
 			//console.log( "token", token );
 			const ret = await User.findOne({_id}); 
 			if( !ret ) throw Error("No such user"); 
@@ -46,8 +46,6 @@ mongoose.connect(process.env.MONGO_URI).then(() => {
 			onlineUserMap[ ret.username.toString() ] = stream.id;
 			
 			io.emit( "onlineUsers", Object.keys(onlineUserMap) )
-			
-			stream.on( "chat-shoaib", ( data ) => console.log( "chat-shoaib", data ) );
 			
 			stream.on( "disconnect", () => {
 				console.log( "A user disconnected from web socket", stream.id)
@@ -92,8 +90,4 @@ mongoose.connect(process.env.MONGO_URI).then(() => {
 
 
 }).catch((err) => console.log(`Error: ${err}`));
-
-
-
-
 

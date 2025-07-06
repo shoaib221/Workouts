@@ -1,23 +1,15 @@
-import { v2 as cloudinary } from "cloudinary"
+
+
 import { useContext, useState } from "react";
 import "../styles/test.css";
 import axios from "axios";
 import { AuthContext } from "../context/authContext";
 import { useViewTransitionState } from "react-router-dom";
 
+
 const api = axios.create( {
     baseURL: "http://localhost:4000"
 } )
-
-
-cloudinary.config({
-    cloud_name : process.env.CLOUDINARY_CLOUD_NAME,
-    api_key:     process.env.CLOUDINARY_API_KEY,
-    api_secret:  process.env.CLOUDINARY_API_SECRET
-})
-
-
-
 
 const Image = () => {
     const { user } = useContext(AuthContext)
@@ -61,6 +53,8 @@ const Image = () => {
     )
 }
 
+
+
 const Test1 = () => {
 
     const change = ( id ) => {
@@ -81,6 +75,6 @@ const Test1 = () => {
 
 export const Test = () => {
 
-    return  <Image />
+    
         
 }
