@@ -11,7 +11,7 @@ import './styles/index.css';
 import reportWebVitals from './reportWebVitals.js';
 import { AuthContextProvider } from './context/authContext.js';
 import { Navbar, OptionBar } from './page/Navbar';
-import { Auth, Profile } from './auth.jsx';
+import { Auth } from './auth.jsx';
 import { AuthContext } from './context/authContext';
 import { GoogleAuth } from './GoogleAuth.jsx';
 import { PageNotFound } from './page/PageNotFound';
@@ -19,7 +19,9 @@ import { Socket } from "./page/socket";
 import { Test } from "./page/test";
 import { Chat } from "./page/chat";
 import { Media } from './page/media.jsx';
-
+import { Profile } from './page/profile.jsx';
+import { Html } from './page/html.jsx';
+import { FormDataDemo } from './page/FormData.jsx';
 
 const Home = () => {
 	return (
@@ -27,6 +29,9 @@ const Home = () => {
 			<Link to='/chat' style={{ color: "white" }} >Chat</Link>
             <Link to='/chat' style={{ color: "white" }} >Chat Groups</Link>
             <Link to="/media" style={{ color: "white" }} > Media </Link>
+			<Link to="/profile" style={{ color: "white" }} > Profile </Link>
+			<Link to="/html" style={{ color: "white" }} > Html </Link>
+			<Link to="/formdata" style={{ color: "white" }} > Form Data </Link>
 		</div>
 	)
 }
@@ -46,6 +51,9 @@ function App() {
 				<Route exact path='/test' element={<Test />} >  </Route>
 				<Route exact path='/chat' element={ user ? <Chat /> : <Navigate to="/auth" /> } ></Route>
 				<Route exact path='/media' element={ user ? <Media /> : <Navigate to="/auth" /> } ></Route>
+				<Route exact path='/profile' element={ user ? <Profile /> : <Navigate to="/auth" /> } ></Route>
+				<Route exact path='/html' element={ user ? <Html /> : <Navigate to="/auth" /> } ></Route>
+				<Route exact path='/formdata' element={ user ? <FormDataDemo /> : <Navigate to="/auth" /> } ></Route>
 				<Route path='*' element={ <PageNotFound/> } ></Route>
 			</Routes>
 

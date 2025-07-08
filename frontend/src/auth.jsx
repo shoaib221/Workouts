@@ -130,17 +130,7 @@ const Register = () => {
 }
 
 
-export const Profile = () => {
 
-
-    return (
-        <div className="profile" >
-            Hello
-
-            <input type="file" accept="image/*" />
-        </div>
-    )
-}
 
 
 export const Auth = () => {

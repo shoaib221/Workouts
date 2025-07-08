@@ -1,5 +1,6 @@
 //console.log("controller");
 
+
 const express = require("express");
 const chatRouter = express.Router();
 const bcrypt = require("bcrypt");
@@ -12,8 +13,21 @@ const { oauth2Client } = require("../utils/googleClient.js");
 const { onlineUserMap, io }  = require("../utils/socket.js");
 const { Message } = require("../models/chat.js");
 const { cloudinary } = require("../utils/cloudinary.js");
+const { use } = require("react");
+const multer = require("multer");
+const fetch = require("node-fetch")
+
+const storage = multer.diskStorage({
+	destination: function (req, file, cb) {
+		cb(null, 'uploads/'); },
+	filename: function (req, file, cb) {
+		cb(null, Date.now() + '-' + file.originalname); }
+});
+
+const upload = multer({ storage: storage });
 
 //console.log( "controller", onlineUserMap);
+
 
 const fetchMessage  = async ( req, res, next ) => {
 	console.log("fetch message");
@@ -39,7 +53,6 @@ const fetchMessage  = async ( req, res, next ) => {
 		res.status(400).json({ error: error.message  });
 	}
 }
-
 
 
 const sendMessage = async ( req, res, next ) => {
@@ -71,6 +84,7 @@ const sendMessage = async ( req, res, next ) => {
 	}
 }
 
+
 const FetchUsers = async ( req, res, next ) => {
 
 	try {
@@ -94,8 +108,13 @@ const UploadImageClodianry = async ( req, res, next ) => {
 		
 		if(!image) throw Error( "image not found" )
 		const response = await cloudinary.uploader.upload(image)
-		res.status(200).json( { msg: "image uploaded", secure_url: response.secure_url } )
-		console.log( "successful", response.secure_url )
+		console.log( response.secure_url )
+		
+		await User.updateOne( { username: req.username }, { image: response.secure_url }  )
+		const user =await User.findOne( { username: req.username } )
+		console.log(user)
+		res.status(200).json({ user })
+
 	} catch (err) {
 		console.log("error", err.error)
 		res.status(400).json( { error: err.error } )
@@ -105,11 +124,40 @@ const UploadImageClodianry = async ( req, res, next ) => {
 	}
 }
 
+
+const ReceiveFormData = async ( req, res, next ) => {
+	try {
+	console.log( req.body );
+	console.log( req.file );
+	res.status(200).json( { "msg": "ok" } );
+	} catch (err) {
+		res.status(400).json( { error: err.message } )
+	}
+}
+
+const FormToCloud = async ( req, res, next ) => {
+	try {
+		console.log( req.body );
+		console.log( req.file );
+		
+		let url = "http://localhost:4000/"+req.file.filename;
+		
+		
+		res.status(200).json( { "url": url } );
+	} catch (err) {
+		console.log("error",err)
+		res.status(400).json( { error: err.message } )
+	}
+}
+
+
 chatRouter.use( requireAuth );
 chatRouter.post( "/fetchmessage", fetchMessage);
 chatRouter.post( "/sendmessage", sendMessage );
 chatRouter.get( "/users", FetchUsers );
 chatRouter.post( "/image", UploadImageClodianry );
+chatRouter.post( "/formdata", upload.single('photo'), ReceiveFormData );
+chatRouter.post( '/formtocloud', upload.single('photo'), FormToCloud );
 module.exports = { chatRouter };
 
 

@@ -4,7 +4,6 @@ import { useContext, useState } from "react";
 import "../styles/test.css";
 import axios from "axios";
 import { AuthContext } from "../context/authContext";
-import { useViewTransitionState } from "react-router-dom";
 
 
 const api = axios.create( {
@@ -21,6 +20,8 @@ const Image = () => {
 
     const handleChange = (event) => {
         let file = event.target.files[0];
+
+        
         
         if(file) {
             const reader =new FileReader()
@@ -34,6 +35,8 @@ const Image = () => {
 
     const handleSubmit = async () => {
         console.log(imagePreview)
+
+        try {
         const response = await fetch( "http://localhost:4000/chat/image", {
             method: "POST",
             crossDomain: true,
@@ -49,7 +52,11 @@ const Image = () => {
         } )
 
         const json = await response.json();
-        setSavedImage( json.secure_url )
+        //console.log( json.user )
+        setSavedImage( json.user.image )
+        } catch (error) {
+            console.log("error", error.message)
+        }
 
     }
 
