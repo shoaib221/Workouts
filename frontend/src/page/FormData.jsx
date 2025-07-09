@@ -2,7 +2,7 @@ import { useContext, useState } from "react"
 import axios from "axios"
 import { AuthContext } from "../context/authContext";
 
-const api = axios.create( { baseURL: "http://localhost:4000/" } );
+const api = axios.create( { baseURL: "http://localhost:4000" } );
 
 export const FormDataDemo = () => {
     const [ email, setEmail ] = useState(null)
@@ -59,10 +59,8 @@ export const FormDataDemo = () => {
                     placeholder="Password"
                 />  
 
-                <input 
-                    type="file"   onChange={imageChange} 
-                    
-                />  
+                <input type="file"   onChange={imageChange}  />  
+
                 <img alt="image" src={imagePreview} style={{ height: "100px", width: "100px" }}  />
                 <br />
                 <img alt="image" src={imageURL} style={{ height: "100px", width: "100px", border: "2px solid white" }}  />

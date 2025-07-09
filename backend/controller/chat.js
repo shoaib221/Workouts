@@ -10,21 +10,13 @@ const axios = require("axios");
 const { User } = require( "../models/auth.js" );
 const { requireAuth } = require("./middlewire.js");
 const { oauth2Client } = require("../utils/googleClient.js");
-const { onlineUserMap, io }  = require("../utils/socket.js");
+const { onlineUserMap, io, multer_upload }  = require("../utils/socket.js");
 const { Message } = require("../models/chat.js");
 const { cloudinary } = require("../utils/cloudinary.js");
 const { use } = require("react");
-const multer = require("multer");
 const fetch = require("node-fetch")
 
-const storage = multer.diskStorage({
-	destination: function (req, file, cb) {
-		cb(null, 'uploads/'); },
-	filename: function (req, file, cb) {
-		cb(null, Date.now() + '-' + file.originalname); }
-});
 
-const upload = multer({ storage: storage });
 
 //console.log( "controller", onlineUserMap);
 
@@ -156,8 +148,8 @@ chatRouter.post( "/fetchmessage", fetchMessage);
 chatRouter.post( "/sendmessage", sendMessage );
 chatRouter.get( "/users", FetchUsers );
 chatRouter.post( "/image", UploadImageClodianry );
-chatRouter.post( "/formdata", upload.single('photo'), ReceiveFormData );
-chatRouter.post( '/formtocloud', upload.single('photo'), FormToCloud );
+chatRouter.post( "/formdata", multer_upload.single('photo'), ReceiveFormData );
+chatRouter.post( '/formtocloud', multer_upload.single('photo'), FormToCloud );
 module.exports = { chatRouter };
 
 
